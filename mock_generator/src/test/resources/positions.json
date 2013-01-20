@@ -1,0 +1,28 @@
+{
+    "name":"position",
+    "type":"delimited",
+    "separator":",",
+    "fields":[
+        {
+          "name":"id",
+          "type":"int",
+          "minLength":"1",
+          "maxLength":"10",
+          "defaultValue":"100"
+        },
+        {
+          "name":"name",
+          "type":"String",
+          "minLength":"1",
+          "maxLength":"100",
+          "defaultValue":"Rixon Mathew"
+        },
+        {
+          "name":"description",
+          "type":"String",
+          "minLength":"1",
+          "maxLength":"100",
+          "defaultValue":"Master of Crafts"
+        }
+    ]
+}
