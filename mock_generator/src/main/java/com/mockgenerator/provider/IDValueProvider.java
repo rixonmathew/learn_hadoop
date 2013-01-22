@@ -7,9 +7,8 @@ import java.util.Random;
  * Date: 20/01/13
  * Time: 9:42 PM
  */
-public class IDValueProvider implements ValueProvider<Long> {
+public class IDValueProvider extends AbstractValueProvider<Long> {
 
-    private final Random random = new Random();
     @Override
     public Long randomValue() {
         return Math.abs(random.nextLong());
@@ -23,5 +22,10 @@ public class IDValueProvider implements ValueProvider<Long> {
         minimumValue = (long)Math.pow(10,(minLength-1))+1;
         value = minimumValue+ (long)(Math.random()*(maxValue-minimumValue))+1;
         return value;
+    }
+
+    @Override
+    public String formattedRandomValue(long minLength, long maxLength, String formatMask) {
+        return randomValue(minLength,maxLength).toString(); //TODO implement when there is requirement for the same
     }
 }

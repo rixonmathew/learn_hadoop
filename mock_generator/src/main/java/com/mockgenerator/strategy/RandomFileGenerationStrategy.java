@@ -8,6 +8,7 @@ import com.mockgenerator.provider.ValueProvider;
 import org.apache.log4j.Logger;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,7 +63,7 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
     }
 
     private void createFilesForSplits() throws IOException {
-        String fileName = schema.getName()+"-part-";
+        String fileName = schema.getName()+"-part";
         for (int split = 0;split<options.getNumberOfFileSplits();split++){
             String splitFileName = fileName+"-"+split;
             File outputFile = new File(outputDirectory.getAbsolutePath()+File.separator+splitFileName);
@@ -96,10 +97,25 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
         String separator = schema.getSeparator();
         for (int i=0;i<maxRecords;i++){
             StringBuffer record = new StringBuffer();
-            for(Field field:fields) {
+            for (int j=0;j<fields.size();j++) {
+                Field field = fields.get(j);
                 ValueProvider valueProvider = TypeValueProviders.valueProviderFor(field.getType());
-                Object value = valueProvider.randomValue(field.getMinLength(),field.getMaxLength());
-                record.append(value).append(separator);
+                Object value;
+                //TODO This has become ugly. How to simplify this
+                if (field.getRange()!=null) {
+                    List<String> values = Arrays.asList(field.getRange().split(","));
+                    value = valueProvider.randomValueFromRange(values);
+                } else {
+                    if (field.getFormatMask()!=null) {
+                        value = valueProvider.formattedRandomValue(field.getMinLength(),field.getMaxLength(),field.getFormatMask());
+                    } else {
+                        value = valueProvider.randomValue(field.getMinLength(),field.getMaxLength());
+                    }
+                }
+                record.append(value);
+                if (j!=fields.size()-1){
+                    record.append(separator);
+                }
             }
             try {
                 writer.write(record.toString());

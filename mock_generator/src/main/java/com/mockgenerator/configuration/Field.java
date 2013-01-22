@@ -12,6 +12,8 @@ public class Field {
     private int minLength;
     private int maxLength;
     private String defaultValue;
+    private String formatMask;
+    private String range;
 
     public String getName() {
         return name;
@@ -52,4 +54,35 @@ public class Field {
     public void setDefaultValue(String defaultValue) {
         this.defaultValue = defaultValue;
     }
+
+    public String getFormatMask() {
+        return formatMask;
+    }
+
+    public void setFormatMask(String formatMask) {
+        this.formatMask = formatMask;
+    }
+
+    public String getRange() {
+        return range;
+    }
+
+    public void setRange(String range) {
+        this.range = range;
+    }
+
+    @Override
+    public String toString() {
+        return "Field{" +
+                "name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", minLength=" + minLength +
+                ", maxLength=" + maxLength +
+                ", defaultValue='" + defaultValue + '\'' +
+                ", formatMask='" + formatMask + '\'' +
+                ", range='" + range + '\'' +
+                '}';
+    }
+
+
 }
