@@ -8,15 +8,15 @@ import java.util.Random;
  * User: rixon
  * Date: 22/1/13
  * Time: 3:19 PM
- * To change this template use File | Settings | File Templates.
+ * This class is the abstract implementation of the ValueProvider interface.All value providers should extend
+ * AbstractValueProvider
  */
 abstract class AbstractValueProvider<TYPE> implements ValueProvider<TYPE> {
 
-    protected final Random random = new Random();
+    final Random random = new Random();
 
     @Override
     public TYPE randomValueFromRange(List<TYPE> values) {
-        int index;
         TYPE randomValue=null;
         if (values!=null && !values.isEmpty()){
             int size = values.size();

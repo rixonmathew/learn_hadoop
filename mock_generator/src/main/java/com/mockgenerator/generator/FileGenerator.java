@@ -14,8 +14,8 @@ import java.io.File;
  */
 public class FileGenerator {
 
-    private Options options;
-    private Schema schema;
+    private final Options options;
+    private final Schema schema;
 
     public FileGenerator(Options options, Schema schema) {
         this.options = options;

@@ -22,7 +22,7 @@ public class SchemaParser {
             String jsonString = readInputFile(configurationFileName);
             schema = populateAttributes(jsonString);
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
         return schema;
 
@@ -34,7 +34,7 @@ public class SchemaParser {
             return "";
         }
         BufferedReader br = new BufferedReader(new FileReader(fileURL.getPath()));
-        StringBuffer stringBuffer = new StringBuffer();
+        StringBuilder stringBuffer = new StringBuilder();
         String line = br.readLine();
         stringBuffer.append(line);
         while (line != null) {

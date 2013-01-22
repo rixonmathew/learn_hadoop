@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class TestIDValueProvider {
 
-    IDValueProvider valueProvider;
+    private IDValueProvider valueProvider;
 
     @Before
     public void setup() {

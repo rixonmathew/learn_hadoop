@@ -16,7 +16,7 @@ public class StringValueProvider extends AbstractValueProvider<String> {
 
     @Override
     public String randomValue(long minLength, long maxLength) {
-        StringBuffer placeHolder = new StringBuffer();
+        StringBuilder placeHolder = new StringBuilder();
         int length = (int)(minLength+(int)(Math.random()*(maxLength-minLength)+1));
         placeHolder.append(randomStringValue(length));
         return placeHolder.toString();

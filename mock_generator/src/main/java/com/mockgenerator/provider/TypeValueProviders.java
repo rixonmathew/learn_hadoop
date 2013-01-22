@@ -13,7 +13,7 @@ import java.util.Map;
 public class TypeValueProviders {
 
     private final static Logger LOG = Logger.getLogger(TypeValueProviders.class);
-    private static Map<String,ValueProvider> valueProviders;
+    private static final Map<String,ValueProvider> valueProviders;
 
     static {
         valueProviders = new HashMap<String, ValueProvider>();

@@ -16,7 +16,7 @@ import static org.hamcrest.Matchers.not;
  */
 public class TestFastJSONParser {
 
-    final String jsonString ="{   \"name\":\"admin\",\"id\":0,\"users\":[    {\"name\":\"guest\",\"id\":2},    {\"name\":\"root\",\"id\":3}    ]    }";
+    private final String jsonString ="{   \"name\":\"admin\",\"id\":0,\"users\":[    {\"name\":\"guest\",\"id\":2},    {\"name\":\"root\",\"id\":3}    ]    }";
 
     static class Group {
         private Long id;

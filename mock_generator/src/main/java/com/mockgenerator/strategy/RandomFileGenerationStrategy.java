@@ -24,7 +24,7 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
     private Schema schema;
     private Options options;
     private File outputDirectory;
-    private Map<Long,File> filesForSplit;
+    private final Map<Long,File> filesForSplit;
 
     public RandomFileGenerationStrategy() {
         filesForSplit = new HashMap<Long, File>();
@@ -89,14 +89,14 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
             e.printStackTrace();
             return;
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
 
         long maxRecords = options.getNumberOfRecordsPerSplit();
         List<Field> fields = schema.getFields();
         String separator = schema.getSeparator();
         for (int i=0;i<maxRecords;i++){
-            StringBuffer record = new StringBuffer();
+            StringBuilder record = new StringBuilder();
             for (int j=0;j<fields.size();j++) {
                 Field field = fields.get(j);
                 ValueProvider valueProvider = TypeValueProviders.valueProviderFor(field.getType());
@@ -121,13 +121,13 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
                 writer.write(record.toString());
                 writer.newLine();
             } catch (IOException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace();
             }
         }
         try {
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
     }
 }

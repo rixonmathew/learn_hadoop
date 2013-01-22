@@ -7,7 +7,7 @@ import java.util.Random;
  * User: rixon
  * Date: 22/1/13
  * Time: 2:10 PM
- * To change this template use File | Settings | File Templates.
+ * This class represents the ValueProvider for AlphaNumeric Type of data
  */
 public class AlphaNumericValueProvider extends AbstractValueProvider<String> {
 

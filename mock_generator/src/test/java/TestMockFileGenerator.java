@@ -33,7 +33,7 @@ public class TestMockFileGenerator {
         assertThat(file.isDirectory(),is(true));
         File[] files = file.listFiles();
         assertNotNull(files);
-        assertThat(Long.valueOf(files.length),is(options.getNumberOfFileSplits()));
+        assertThat((long) files.length,is(options.getNumberOfFileSplits()));
         for (File file1:files) {
             System.out.println("file1 = " + file1.getName());
         }

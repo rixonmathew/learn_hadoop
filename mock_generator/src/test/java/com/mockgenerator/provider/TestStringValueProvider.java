@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class TestStringValueProvider {
 
-    StringValueProvider stringValueProvider;
+    private StringValueProvider stringValueProvider;
 
     @Before
     public void setup(){

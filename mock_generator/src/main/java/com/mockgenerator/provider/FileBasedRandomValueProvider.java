@@ -22,7 +22,7 @@ import java.util.Random;
 class FileBasedRandomValueProvider {
 
     private final static Logger LOG = Logger.getLogger(FileBasedRandomValueProvider.class);
-    private static List<Date> dateList;
+    private static final List<Date> dateList;
     private static final String DATES_FILE = "dates.txt";
     private static final Random random;
 

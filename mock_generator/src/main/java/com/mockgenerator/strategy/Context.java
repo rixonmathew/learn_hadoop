@@ -12,10 +12,10 @@ import java.util.Map;
  */
 public class Context {
 
-    public static final String RANDOM="random";
+    private static final String RANDOM="random";
     private static final Logger LOG = Logger.getLogger(Context.class);
 
-    private static Map<String,FileGenerationStrategy> strategies;
+    private static final Map<String,FileGenerationStrategy> strategies;
     static {
         strategies = new HashMap<String, FileGenerationStrategy>();
         strategies.put(RANDOM,new RandomFileGenerationStrategy());

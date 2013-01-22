@@ -12,7 +12,7 @@ public class Schema {
     private String name;
     private String type;
     private String separator;
-    List<Field> fields;
+    private List<Field> fields;
 
     public String getName() {
         return name;

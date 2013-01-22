@@ -13,7 +13,7 @@ public interface FileGenerationStrategy {
 
 
     /**
-     * This method is responsible for generating the data required for the files as per the startegy
+     * This method is responsible for generating the data required for the files as per the strategy
      * @param schema the schema that represents the structure of the file
      * @param options options required for generating file
      */
