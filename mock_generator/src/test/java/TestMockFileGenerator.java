@@ -23,7 +23,7 @@ public class TestMockFileGenerator {
         Options options = new Options();
         options.setGenerationType("random");
         options.setNumberOfFileSplits(3);
-        options.setNumberOfRecordsPerSplit(10000);
+        options.setNumberOfRecordsPerSplit(5000);
         final String outputDirectory = "test-target";
         options.setOutputDirectory(outputDirectory);
         options.setCompressOutput(true);
