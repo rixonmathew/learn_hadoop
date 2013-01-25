@@ -38,4 +38,20 @@ public class TestJSONConfigReader {
 
     }
 
+    @Test
+    public void testConfigurationReaderForFixedWidthSchema() {
+        final String CONFIGURATION_FILE_NAME="instruments.json";
+        final String expectedName = "instruments";
+        final String expectedType = "fixed-width";
+        Schema schema = SchemaParser.parse(CONFIGURATION_FILE_NAME);
+        assertNotNull(schema);
+        assertThat(schema.getName(),is(expectedName));
+        assertThat(schema.getType(), is(expectedType));
+        List<Field> fields = schema.getFields();
+        int expectedFields = 4;
+        assertThat(fields.size(),is(expectedFields));
+        for (Field field:fields) {
+            System.out.println("field = " + field);
+        }
+    }
 }

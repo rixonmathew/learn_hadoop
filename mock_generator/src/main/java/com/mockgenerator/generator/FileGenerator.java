@@ -1,10 +1,8 @@
 package com.mockgenerator.generator;
 
 import com.mockgenerator.configuration.Schema;
-import com.mockgenerator.strategy.Context;
+import com.mockgenerator.strategy.FileGenerationContext;
 import com.mockgenerator.strategy.FileGenerationStrategy;
-
-import java.io.File;
 
 /**
  * User: rixonmathew
@@ -23,7 +21,7 @@ public class FileGenerator {
     }
 
     public void generateFiles() {
-        FileGenerationStrategy strategy = Context.strategyForType(options.getGenerationType());
+        FileGenerationStrategy strategy = FileGenerationContext.strategyForType(options.getGenerationType());
         strategy.generateFileData(schema,options);
     }
 }

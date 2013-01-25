@@ -6,14 +6,17 @@ package com.mockgenerator.configuration;
 * Time: 2:30 PM
 * This class represents a field in the file
 */
-public class Field {
+public class Field<TYPE> {
     private String name;
     private String type;
     private int minLength;
     private int maxLength;
-    private String defaultValue;
+    private int fixedLength;
+    private TYPE defaultValue;
     private String formatMask;
     private String range;
+    private TYPE suffix;
+    private TYPE prefix;
 
     public String getName() {
         return name;
@@ -47,11 +50,11 @@ public class Field {
         this.maxLength = maxLength;
     }
 
-    public String getDefaultValue() {
+    public TYPE getDefaultValue() {
         return defaultValue;
     }
 
-    public void setDefaultValue(String defaultValue) {
+    public void setDefaultValue(TYPE defaultValue) {
         this.defaultValue = defaultValue;
     }
 
@@ -71,6 +74,30 @@ public class Field {
         this.range = range;
     }
 
+    public int getFixedLength() {
+        return fixedLength;
+    }
+
+    public void setFixedLength(int fixedLength) {
+        this.fixedLength = fixedLength;
+    }
+
+    public TYPE getSuffix() {
+        return suffix;
+    }
+
+    public void setSuffix(TYPE suffix) {
+        this.suffix = suffix;
+    }
+
+    public TYPE getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(TYPE prefix) {
+        this.prefix = prefix;
+    }
+
     @Override
     public String toString() {
         return "Field{" +
@@ -78,11 +105,12 @@ public class Field {
                 ", type='" + type + '\'' +
                 ", minLength=" + minLength +
                 ", maxLength=" + maxLength +
+                ", fixedLength=" + fixedLength +
                 ", defaultValue='" + defaultValue + '\'' +
                 ", formatMask='" + formatMask + '\'' +
                 ", range='" + range + '\'' +
+                ", suffix='" + suffix + '\'' +
+                ", prefix='" + prefix + '\'' +
                 '}';
     }
-
-
 }

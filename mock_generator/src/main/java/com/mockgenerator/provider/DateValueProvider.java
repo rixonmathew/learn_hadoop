@@ -16,6 +16,11 @@ public class DateValueProvider extends AbstractValueProvider<Date> {
     }
 
     @Override
+    Date formatValueFromString(String stringValue) {
+        return DateUtil.getFormattedDate(stringValue);
+    }
+
+    @Override
     public Date randomValue(long minLength, long maxLength) {
         return randomValue();
     }

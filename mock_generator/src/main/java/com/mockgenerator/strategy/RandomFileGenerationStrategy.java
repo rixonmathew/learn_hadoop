@@ -1,16 +1,13 @@
 package com.mockgenerator.strategy;
 
-import com.mockgenerator.configuration.Field;
 import com.mockgenerator.configuration.Schema;
 import com.mockgenerator.generator.Options;
-import com.mockgenerator.provider.TypeValueProviders;
-import com.mockgenerator.provider.ValueProvider;
+import com.mockgenerator.strategy.record.RecordCreationContext;
+import com.mockgenerator.strategy.record.RecordCreationStrategy;
 import org.apache.log4j.Logger;
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,7 +21,8 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
     private Schema schema;
     private Options options;
     private File outputDirectory;
-    private final Map<Long,File> filesForSplit;
+    private final Map<Long, File> filesForSplit;
+    private RecordCreationStrategy recordCreationStrategy;
 
     public RandomFileGenerationStrategy() {
         filesForSplit = new HashMap<Long, File>();
@@ -52,7 +50,13 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
     }
 
     private void generateOutputDirectories() {
-        outputDirectory = new File(options.getOutputDirectory());
+        if (options.getOutputDirectory() == null || options.getOutputDirectory().isEmpty()) {
+            String name = "output_" + System.currentTimeMillis();
+            outputDirectory = new File(name);
+        } else {
+            outputDirectory = new File(options.getOutputDirectory());
+        }
+
         outputDirectory.mkdirs();
 
     }
@@ -63,71 +67,36 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
     }
 
     private void createFilesForSplits() throws IOException {
-        String fileName = schema.getName()+"-part";
-        for (int split = 0;split<options.getNumberOfFileSplits();split++){
-            String splitFileName = fileName+"-"+split;
-            File outputFile = new File(outputDirectory.getAbsolutePath()+File.separator+splitFileName);
+        String fileName = schema.getName() + "-part";
+        for (int split = 0; split < options.getNumberOfFileSplits(); split++) {
+            String splitFileName = fileName + "-" + split;
+            File outputFile = new File(outputDirectory.getAbsolutePath() + File.separator + splitFileName);
             outputFile.createNewFile();
-            filesForSplit.put((long)split,outputFile);
+            filesForSplit.put((long) split, outputFile);
         }
     }
 
     private void populateFilesWithRandomData() {
-        for (Long split:filesForSplit.keySet()) {
-            populateDataForSplit(split);
-        }
-    }
-
-    private void populateDataForSplit(Long split) {
-
-        File outputFile = filesForSplit.get(split);
-        BufferedWriter writer = null;
-        try {
-           writer  =  new BufferedWriter(new FileWriter(outputFile));
-        } catch (FileNotFoundException e) {
-            LOG.error("An error occurred while accessing stream for split:"+split);
-            e.printStackTrace();
-            return;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        long maxRecords = options.getNumberOfRecordsPerSplit();
-        List<Field> fields = schema.getFields();
-        String separator = schema.getSeparator();
-        for (int i=0;i<maxRecords;i++){
-            StringBuilder record = new StringBuilder();
-            for (int j=0;j<fields.size();j++) {
-                Field field = fields.get(j);
-                ValueProvider valueProvider = TypeValueProviders.valueProviderFor(field.getType());
-                Object value;
-                //TODO This has become ugly. How to simplify this
-                if (field.getRange()!=null) {
-                    List<String> values = Arrays.asList(field.getRange().split(","));
-                    value = valueProvider.randomValueFromRange(values);
-                } else {
-                    if (field.getFormatMask()!=null) {
-                        value = valueProvider.formattedRandomValue(field.getMinLength(),field.getMaxLength(),field.getFormatMask());
-                    } else {
-                        value = valueProvider.randomValue(field.getMinLength(),field.getMaxLength());
-                    }
-                }
-                record.append(value);
-                if (j!=fields.size()-1){
-                    record.append(separator);
-                }
-            }
+        for (Long split : filesForSplit.keySet()) {
             try {
-                writer.write(record.toString());
-                writer.newLine();
+                populateDataForSplit(split);
             } catch (IOException e) {
+                LOG.error("An exception occurred while trying to populate data for split");
                 e.printStackTrace();
             }
         }
-        try {
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+    }
+
+    private void populateDataForSplit(Long split) throws IOException{
+        File outputFile = filesForSplit.get(split);
+        BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
+        recordCreationStrategy = RecordCreationContext.strategyFor(schema.getType());
+        long maxRecords = options.getNumberOfRecordsPerSplit();
+        for (int i = 0; i < maxRecords; i++) {
+            String record = recordCreationStrategy.createRecord(schema, options, i);
+            writer.write(record);
+            writer.newLine();
         }
+        writer.close();
     }
 }

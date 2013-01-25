@@ -1,5 +1,7 @@
 package com.mockgenerator.provider;
 
+import com.mockgenerator.util.StringUtil;
+
 import java.util.Random;
 
 /**
@@ -15,11 +17,28 @@ public class StringValueProvider extends AbstractValueProvider<String> {
     }
 
     @Override
+    String formatValueFromString(String stringValue) {
+        return stringValue;
+    }
+
+    @Override
     public String randomValue(long minLength, long maxLength) {
         StringBuilder placeHolder = new StringBuilder();
-        int length = (int)(minLength+(int)(Math.random()*(maxLength-minLength)+1));
+        int length = (int)(minLength+(int)(Math.random()*(maxLength-minLength)));
         placeHolder.append(randomStringValue(length));
         return placeHolder.toString();
+    }
+
+    @Override
+    public String randomValueWithPrefix(long minLength, long maxLength, String prefix) {
+        String value = randomValue(minLength,maxLength);
+        return StringUtil.replacePrefix(value,prefix);
+    }
+
+    @Override
+    public String randomValueWithSuffix(long minLength, long maxLength, String suffix) {
+        String value = randomValue(minLength,maxLength);
+        return StringUtil.replaceSuffix(value,suffix);
     }
 
     @Override

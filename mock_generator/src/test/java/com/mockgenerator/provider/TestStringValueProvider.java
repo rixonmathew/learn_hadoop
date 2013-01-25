@@ -59,4 +59,47 @@ public class TestStringValueProvider {
             System.out.println("value = " + value);
         }
     }
+
+    @Test
+    public void testRandomValueWithPrefix() {
+        String prefix="CUSIP";
+        final int expectedLength = 10;
+        for (int i=0;i<100;i++) {
+            String value = stringValueProvider.randomValueWithPrefix(expectedLength,expectedLength,prefix);
+            assertThat(value.length(),is(expectedLength));
+            System.out.println("value = " + value);
+        }
+    }
+
+    @Test
+    public void testRandomValueForFixedLength() {
+        int expectedLength = 15;
+        for (int i=0;i<100;i++) {
+            String value = stringValueProvider.randomValue(expectedLength,expectedLength);
+            assertThat(value.length(),is(expectedLength));
+        }
+    }
+
+    @Test
+    public void testRandomValueWithSuffix() {
+        String suffix = "PPTY";
+        final int expectedLength = 15;
+        for(int i=0;i<100;i++){
+            String value = stringValueProvider.randomValueWithSuffix(expectedLength,expectedLength,suffix);
+            assertThat(value.length(),is(expectedLength));
+            assertTrue(value.endsWith(suffix));
+        }
+    }
+
+    @Test
+    public void testRandomValueWithSuffixLongerThanValue() {
+        String suffix="ACTMETERPOTER";
+        final int expectedLength = 10;
+        for (int i=0;i<100;i++) {
+            String value = stringValueProvider.randomValueWithSuffix(expectedLength,expectedLength,suffix);
+            assertThat(value.length(),is(expectedLength));
+            System.out.println("value = " + value);
+        }
+
+    }
 }

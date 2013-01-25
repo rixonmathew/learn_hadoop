@@ -4,7 +4,7 @@ import com.mockgenerator.generator.FileGenerator;
 import com.mockgenerator.generator.Options;
 import org.junit.Test;
 
-import java.io.File;
+import java.io.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -18,18 +18,42 @@ import static org.junit.Assert.assertNotNull;
 public class TestMockFileGenerator {
 
     @Test
-    public void testMockFileGeneration() {
-        Schema schema = SchemaParser.parse("positions.json");
-        Options options = new Options();
-        options.setGenerationType("random");
-        options.setNumberOfFileSplits(3);
-        options.setNumberOfRecordsPerSplit(5000);
-        final String outputDirectory = "test-target";
-        options.setOutputDirectory(outputDirectory);
-        options.setCompressOutput(true);
+    public void testMockDelimitedFileGeneration() {
+        String delimitedSchemaName = "positions.json";
+        validateMockFileCreation(delimitedSchemaName);
+    }
+
+    @Test
+    public void testMockFixedWidthFileGeneration() throws IOException {
+       String fixedWidthSchemaName="instruments.json";
+        validateFixedWidthMockFileCreation(fixedWidthSchemaName);
+
+    }
+
+    private void validateFixedWidthMockFileCreation(String schemaName) throws IOException {
+        int expectedMockLength = 100;
+        Schema schema = SchemaParser.parse(schemaName);
+        final String outputDirectory = schemaName.substring(0,schemaName.indexOf("."));
+        Options options = createMockOptions(outputDirectory, "random");
         FileGenerator fileGenerator = new FileGenerator(options,schema);
+        assertFiles(options, fileGenerator);
+        assertRecordLength(options,expectedMockLength);
+    }
+
+
+
+    private void validateMockFileCreation(String schemaName) {
+        Schema schema = SchemaParser.parse(schemaName);
+        final String outputDirectory = schemaName.substring(0,schemaName.indexOf("."));
+        Options options = createMockOptions(outputDirectory, "random");
+        FileGenerator fileGenerator = new FileGenerator(options,schema);
+        assertFiles(options, fileGenerator);
+    }
+
+
+    private void assertFiles(Options options, FileGenerator fileGenerator) {
         fileGenerator.generateFiles();
-        File file = new File(outputDirectory);
+        File file = new File(options.getOutputDirectory());
         assertThat(file.isDirectory(),is(true));
         File[] files = file.listFiles();
         assertNotNull(files);
@@ -37,7 +61,32 @@ public class TestMockFileGenerator {
         for (File file1:files) {
             System.out.println("file1 = " + file1.getName());
         }
-        //assert that directory has been created
+    }
+
+
+    private void assertRecordLength(Options options,int expectedMockLength) throws IOException {
+        File file = new File(options.getOutputDirectory());
+        assertThat(file.isDirectory(),is(true));
+        File[] files = file.listFiles();
+        assertNotNull(files);
+        for(File file1:files) {
+            System.out.println("file1 = " + file1.getName());
+            BufferedReader reader = new BufferedReader(new FileReader(file1));
+            String record;
+            while ((record=reader.readLine())!=null){
+                System.out.println("    record = " + record.length());
+            }
+        }
+    }
+
+    private Options createMockOptions(final String outputDirectory, String generationType) {
+        Options options = new Options();
+        options.setGenerationType(generationType);
+        options.setNumberOfFileSplits(3);
+        options.setNumberOfRecordsPerSplit(5000);
+        options.setOutputDirectory(outputDirectory);
+        options.setCompressOutput(true);
+        return options;
     }
 }
 

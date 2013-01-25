@@ -64,4 +64,15 @@ public class TestIDValueProvider {
             System.out.println("randomValue = " + randomValue);
         }
     }
+
+    @Test
+    public void testRandomValueWithPrefix() {
+        long prefix =101l;
+        int expectedLength=9;
+        for (int i=0;i<100;i++) {
+            Long value = valueProvider.randomValueWithPrefix(expectedLength,expectedLength,prefix);
+            System.out.println("value = " + value);
+        }
+    }
+
 }
