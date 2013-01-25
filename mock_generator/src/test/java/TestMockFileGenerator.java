@@ -31,7 +31,7 @@ public class TestMockFileGenerator {
     }
 
     private void validateFixedWidthMockFileCreation(String schemaName) throws IOException {
-        int expectedMockLength = 100;
+        int expectedMockLength = 143;
         Schema schema = SchemaParser.parse(schemaName);
         final String outputDirectory = schemaName.substring(0,schemaName.indexOf("."));
         Options options = createMockOptions(outputDirectory, "random");
@@ -70,11 +70,12 @@ public class TestMockFileGenerator {
         File[] files = file.listFiles();
         assertNotNull(files);
         for(File file1:files) {
-            System.out.println("file1 = " + file1.getName());
+            //System.out.println("file1 = " + file1.getName());
             BufferedReader reader = new BufferedReader(new FileReader(file1));
             String record;
             while ((record=reader.readLine())!=null){
-                System.out.println("    record = " + record.length());
+                //System.out.println("    record = " + record.length());
+                assertThat(expectedMockLength,is(record.length()));
             }
         }
     }

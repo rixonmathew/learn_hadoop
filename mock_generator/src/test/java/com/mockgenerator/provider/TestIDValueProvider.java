@@ -75,4 +75,14 @@ public class TestIDValueProvider {
         }
     }
 
+    @Test
+    public void testRandomValueWithFixedLength(){
+        int expectedLength=15;
+        for (int i=0;i<100;i++) {
+            Long value = valueProvider.randomValue(15,15);
+            System.out.println("value = " + value);
+            assertThat(String.valueOf(value).length(),is(expectedLength));
+        }
+    }
+
 }

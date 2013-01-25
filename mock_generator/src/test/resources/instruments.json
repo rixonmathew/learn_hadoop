@@ -11,7 +11,7 @@
         {
             "name":"CUSIP",
             "type":"String",
-            "fixedLenth":25,
+            "fixedLength":25,
             "prefix":"CUS"
         },
         {

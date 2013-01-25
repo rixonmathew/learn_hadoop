@@ -52,27 +52,20 @@ abstract class AbstractValueProvider<TYPE> implements ValueProvider<TYPE> {
             return value;
         }
 
-        if(field.getPrefix()!=null) {
-            if(field.getFixedLength() ==0){
-                value =randomValueWithPrefix(field.getMinLength(),field.getMaxLength(),field.getPrefix());
-                return value;
-            } else {
-                value = randomValueWithPrefix(field.getFixedLength(),field.getFixedLength(),field.getPrefix());
-                return value;
-            }
+        long minLength=field.getMinLength()!=0?field.getMinLength():field.getFixedLength();
+        long maxLength=field.getMaxLength()!=0?field.getMaxLength():field.getFixedLength();
+
+        if (field.getPrefix() != null) {
+            value = randomValueWithPrefix(minLength, maxLength, field.getPrefix());
+            return value;
         }
 
-        if (field.getSuffix()!=null) {
-            if(field.getFixedLength() ==0){
-                value =randomValueWithSuffix(field.getMinLength(),field.getMaxLength(),field.getPrefix());
-                return value;
-            } else {
-                value = randomValueWithSuffix(field.getFixedLength(),field.getFixedLength(),field.getPrefix());
-                return value;
-            }
+        if (field.getSuffix() != null) {
+            value = randomValueWithSuffix(minLength,maxLength, field.getSuffix());
+            return value;
         }
 
-        value = randomValue(field.getMinLength(),field.getMaxLength());
+        value = randomValue(minLength,maxLength);
         if(value==null){
             value = field.getDefaultValue();
         }
