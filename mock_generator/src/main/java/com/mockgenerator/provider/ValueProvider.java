@@ -28,7 +28,4 @@ public interface ValueProvider<TYPE> {
      * @return
      */
     public TYPE randomValue(Field<TYPE> field);
-
-
-    //TODO all these methods should be moved as package private methods
 }

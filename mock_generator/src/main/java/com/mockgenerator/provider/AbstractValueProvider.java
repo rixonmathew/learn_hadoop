@@ -43,8 +43,6 @@ abstract class AbstractValueProvider<TYPE> implements ValueProvider<TYPE> {
             value = randomValueFromRange(values);
             return value;
         }
-
-
         //TODO how to make this cleaner?
         if(field.getFormatMask()!=null) {
             String stringValue = formattedRandomValue(field.getMinLength(),field.getMaxLength(),field.getFormatMask());
