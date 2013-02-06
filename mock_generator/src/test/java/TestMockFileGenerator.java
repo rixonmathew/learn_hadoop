@@ -86,7 +86,6 @@ public class TestMockFileGenerator {
         options.setNumberOfFileSplits(3);
         options.setNumberOfRecordsPerSplit(5000);
         options.setOutputDirectory(outputDirectory);
-        options.setCompressOutput(true);
         return options;
     }
 }

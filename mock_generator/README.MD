@@ -4,7 +4,6 @@ Addtional parameters that can be passed from command line are
 2) number of records per split - default 10000
 3) mode of generation:(random,prototype) : default random, if prototype is used then a json file should be specified that provides the propoties for prototypes
 4) output directory -- default output_<currenttime> where the file splits are created
-5) compress(yes/no) -- default no, if yes then all splits are combined into a tar.gz ball)
 
 To run this program following steps needs to be done
 1) Create a json file that specifies the schema (e.g. positions.json)

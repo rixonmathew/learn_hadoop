@@ -13,14 +13,12 @@ public class Options {
     private long numberOfFileSplits;
     private long numberOfRecordsPerSplit;
     private String outputDirectory;
-    private boolean compressOutput;
 
     public Options() {
         this.generationType = DEFAULT_GENERATION_TYPE;
         this.numberOfFileSplits = 1;
         this.numberOfRecordsPerSplit = 10000;
         this.outputDirectory = OUTPUT_DIR;
-        this.compressOutput = false;
     }
 
     public String getGenerationType() {
@@ -55,11 +53,4 @@ public class Options {
         this.outputDirectory = outputDirectory;
     }
 
-    public boolean isCompressOutput() {
-        return compressOutput;
-    }
-
-    public void setCompressOutput(boolean compressOutput) {
-        this.compressOutput = compressOutput;
-    }
 }
