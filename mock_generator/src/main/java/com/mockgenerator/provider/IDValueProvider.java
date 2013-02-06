@@ -38,7 +38,6 @@ public class IDValueProvider extends AbstractValueProvider<Long> {
     public Long randomValueWithPrefix(long minLength, long maxLength, Long prefix) {
         Long value = randomValue(minLength,maxLength);
         String stringValue = value.toString();
-
         return super.randomValueWithPrefix(minLength, maxLength, prefix);    //To change body of overridden methods use File | Settings | File Templates.
     }
 }

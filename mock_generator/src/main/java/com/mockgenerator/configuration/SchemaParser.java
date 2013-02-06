@@ -2,10 +2,7 @@ package com.mockgenerator.configuration;
 
 import com.alibaba.fastjson.JSON;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 
 /**
@@ -29,11 +26,13 @@ public class SchemaParser {
     }
 
     private static String readInputFile(String configurationFileName) throws IOException {
-        URL fileURL = ClassLoader.getSystemClassLoader().getResource(configurationFileName);
-        if (fileURL == null) {
-            return "";
-        }
-        BufferedReader br = new BufferedReader(new FileReader(fileURL.getPath()));
+//        final ClassLoader resourceLoader = Thread.currentThread().getContextClassLoader();
+//        InputStream inputStream = resourceLoader.getResourceAsStream(configurationFileName);
+//        if (inputStream==null){
+//            throw new FileNotFoundException("Could not load configuration file:"+configurationFileName);
+//        }
+//        BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+        BufferedReader br = new BufferedReader(new FileReader(configurationFileName));
         StringBuilder stringBuffer = new StringBuilder();
         String line = br.readLine();
         stringBuffer.append(line);

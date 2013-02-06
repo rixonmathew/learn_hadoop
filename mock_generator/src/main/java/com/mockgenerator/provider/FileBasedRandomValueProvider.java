@@ -3,9 +3,7 @@ package com.mockgenerator.provider;
 import com.mockgenerator.util.DateUtil;
 import org.apache.log4j.Logger;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,7 +17,9 @@ import java.util.Random;
  * Time: 12:22 PM
  * This class will provide random values based on a set of values defined in a file.
  */
+//TODO This naming convention is not as per the class responsibility. This should be refactored.
 class FileBasedRandomValueProvider {
+
 
     private final static Logger LOG = Logger.getLogger(FileBasedRandomValueProvider.class);
     private static final List<Date> dateList;
@@ -45,13 +45,13 @@ class FileBasedRandomValueProvider {
     }
 
     private static void datesFormFile() throws IOException {
-        URL datesURL = ClassLoader.getSystemClassLoader().getResource(DATES_FILE);
-
-        if (datesURL == null) {
+        final ClassLoader resourceLoader = Thread.currentThread().getContextClassLoader();
+        InputStream datesFile = resourceLoader.getResourceAsStream(DATES_FILE);
+        if (datesFile == null) {
             LOG.error("Dates file not found :"+DATES_FILE);
             return;
         }
-        BufferedReader br = new BufferedReader(new FileReader(datesURL.getPath()));
+        BufferedReader br = new BufferedReader(new InputStreamReader(datesFile));
         String line = br.readLine();
         while (line != null) {
             line = br.readLine();

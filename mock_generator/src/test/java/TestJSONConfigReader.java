@@ -20,7 +20,7 @@ public class TestJSONConfigReader {
 
     @Test
     public void testValidConfigurationReader() {
-        final String CONFIGURATION_FILE_NAME = "positions.json";
+        final String CONFIGURATION_FILE_NAME = "/home/rixon/workspace/workspace_misc/learn_hadoop/mock_generator/src/test/resources/positions.json";
         final String expectedName = "position";
         final String expectedType = "delimited";
         final String expectedSeparator = ",";
@@ -40,7 +40,7 @@ public class TestJSONConfigReader {
 
     @Test
     public void testConfigurationReaderForFixedWidthSchema() {
-        final String CONFIGURATION_FILE_NAME="instruments.json";
+        final String CONFIGURATION_FILE_NAME="/home/rixon/workspace/workspace_misc/learn_hadoop/mock_generator/src/test/resources/instruments.json";
         final String expectedName = "instruments";
         final String expectedType = "fixed-width";
         Schema schema = SchemaParser.parse(CONFIGURATION_FILE_NAME);

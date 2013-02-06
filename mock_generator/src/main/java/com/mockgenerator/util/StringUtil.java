@@ -11,7 +11,7 @@ public class StringUtil {
 
     /**
      *  This method will replace the beginning characters of the string with prefix
-     *  values such that overall lenght of the string is same. If prefix is longer than
+     *  values such that overall length of the string is same. If prefix is longer than
      *  value then prefix will be chopped till length. If prefix is empty or null then value
      *  is returned
      * @param value the string value

@@ -19,13 +19,13 @@ public class TestMockFileGenerator {
 
     @Test
     public void testMockDelimitedFileGeneration() {
-        String delimitedSchemaName = "positions.json";
+        String delimitedSchemaName = "/home/rixon/workspace/workspace_misc/learn_hadoop/mock_generator/src/test/resources/positions.json";
         validateMockFileCreation(delimitedSchemaName);
     }
 
     @Test
     public void testMockFixedWidthFileGeneration() throws IOException {
-       String fixedWidthSchemaName="instruments.json";
+       String fixedWidthSchemaName="/home/rixon/workspace/workspace_misc/learn_hadoop/mock_generator/src/test/resources/instruments.json";
         validateFixedWidthMockFileCreation(fixedWidthSchemaName);
 
     }
