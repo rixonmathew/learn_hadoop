@@ -27,7 +27,6 @@ public class TestMockFileGenerator {
     public void testMockFixedWidthFileGeneration() throws IOException {
        String fixedWidthSchemaName="/home/rixon/workspace/workspace_misc/learn_hadoop/mock_generator/src/test/resources/instruments.json";
         validateFixedWidthMockFileCreation(fixedWidthSchemaName);
-
     }
 
     private void validateFixedWidthMockFileCreation(String schemaName) throws IOException {

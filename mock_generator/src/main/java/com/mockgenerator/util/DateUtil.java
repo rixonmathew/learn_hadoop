@@ -16,22 +16,27 @@ import java.util.Date;
 public class DateUtil {
     private static final DateFormat dateFormat = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
 
-    public static Date getFormattedDate(String dateString) {
+    public synchronized static Date getFormattedDate(String dateString) {
         try {
+            //return SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT).parse(dateString);
             return dateFormat.parse(dateString);
         } catch (ParseException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("Invalid date string " + dateString);
+        } catch(Exception e) {
+            System.out.println("dateString = [" + dateString + "]");
             e.printStackTrace();
             throw new IllegalArgumentException("Invalid date string " + dateString);
         }
     }
 
-    public static String getFormattedDate(Date date, String formatMask) {
+    public synchronized static String getFormattedDate(Date date, String formatMask) {
         //TODO reseaarch on how format can be checked
         return getDateAsString(date);
     }
 
 
-    public static String getDateAsString(Date date) {
+    public synchronized static String getDateAsString(Date date) {
         return dateFormat.format(date);
     }
 }

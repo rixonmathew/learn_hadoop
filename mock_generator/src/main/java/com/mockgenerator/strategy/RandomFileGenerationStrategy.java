@@ -9,6 +9,8 @@ import org.apache.log4j.Logger;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * User: rixonmathew
@@ -77,26 +79,45 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
     }
 
     private void populateFilesWithRandomData() {
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
         for (Long split : filesForSplit.keySet()) {
+            Worker worker = new Worker(split);
+            executorService.execute(worker);
+        }
+        executorService.shutdown();
+        while (!executorService.isTerminated()) {
+        }
+    }
+
+
+    class Worker implements Runnable {
+        Long split;
+
+        Worker(Long split) {
+            this.split = split;
+        }
+
+        private void populateDataForSplit() throws IOException{
+            File outputFile = filesForSplit.get(split);
+            BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
+            recordCreationStrategy = RecordCreationContext.strategyFor(schema.getType());
+            long maxRecords = options.getNumberOfRecordsPerSplit();
+            for (int i = 0; i < maxRecords; i++) {
+                String record = recordCreationStrategy.createRecord(schema, options, i);
+                writer.write(record);
+                writer.newLine();
+            }
+            writer.close();
+        }
+
+        @Override
+        public void run() {
             try {
-                populateDataForSplit(split);
+                populateDataForSplit();
             } catch (IOException e) {
-                LOG.error("An exception occurred while trying to populate data for split");
-                e.printStackTrace();
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
         }
     }
 
-    private void populateDataForSplit(Long split) throws IOException{
-        File outputFile = filesForSplit.get(split);
-        BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
-        recordCreationStrategy = RecordCreationContext.strategyFor(schema.getType());
-        long maxRecords = options.getNumberOfRecordsPerSplit();
-        for (int i = 0; i < maxRecords; i++) {
-            String record = recordCreationStrategy.createRecord(schema, options, i);
-            writer.write(record);
-            writer.newLine();
-        }
-        writer.close();
-    }
 }

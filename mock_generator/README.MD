@@ -13,3 +13,13 @@ To run this program following steps needs to be done
       cd target/
 4) Run the application via command
      java -jar <generated jar file> --file <fully qualified name of propertiesfile>
+
+
+The type of random values that can be generated
+1) Random numbers of certain length
+2) Random string of certain lenght
+3) Random alphanumeric string
+4) Random values from a given range e.g. a field Designation should be of value only from CEO,Manager,Developer,Tester
+5) Random values for a number between two values only (100001..1000101).
+   This will be useful for generating transaction data for a given id.
+6)
