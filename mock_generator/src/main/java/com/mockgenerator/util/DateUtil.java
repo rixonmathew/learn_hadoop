@@ -31,7 +31,7 @@ public class DateUtil {
     }
 
     public synchronized static String getFormattedDate(Date date, String formatMask) {
-        //TODO reseaarch on how format can be checked
+        //TODO research on how format can be checked
         return getDateAsString(date);
     }
 

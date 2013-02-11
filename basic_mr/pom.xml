@@ -17,7 +17,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>NewMaxTemperature</mainClass>
+                            <mainClass>SequenceFileWriteDemo</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
