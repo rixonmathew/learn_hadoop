@@ -24,7 +24,7 @@ public class FixedWidthRecordCreationStrategy implements RecordCreationStrategy 
         for (int j = 0; j < fields.size(); j++) {
             Field field = fields.get(j);
             ValueProvider valueProvider = TypeValueProviders.valueProviderFor(field.getType());
-            Object value = valueProvider.randomValue(field);
+            String value = valueProvider.randomValueAsString(field);
             record.append(value);
         }
         return record.toString();

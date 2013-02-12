@@ -1,10 +1,11 @@
 package com.mockgenerator.configuration;
 
 /**
+* This class represents a field structure that is the basis for generating random values. This class provides all the
+* constraints in the boundary of which the random values needs to be generated.
 * User: rixonmathew
 * Date: 19/01/13
 * Time: 2:30 PM
-* This class represents a field in the file
 */
 public class Field<TYPE> {
     private String name;
@@ -17,6 +18,9 @@ public class Field<TYPE> {
     private String range;
     private TYPE suffix;
     private TYPE prefix;
+    private TYPE minValue;
+    private TYPE maxValue;
+    private String padding;
 
     public String getName() {
         return name;
@@ -98,6 +102,30 @@ public class Field<TYPE> {
         this.prefix = prefix;
     }
 
+    public TYPE getMinValue() {
+        return minValue;
+    }
+
+    public void setMinValue(TYPE minValue) {
+        this.minValue = minValue;
+    }
+
+    public TYPE getMaxValue() {
+        return maxValue;
+    }
+
+    public void setMaxValue(TYPE maxValue) {
+        this.maxValue = maxValue;
+    }
+
+    public String getPadding() {
+        return padding;
+    }
+
+    public void setPadding(String padding) {
+        this.padding = padding;
+    }
+
     @Override
     public String toString() {
         return "Field{" +
@@ -106,11 +134,14 @@ public class Field<TYPE> {
                 ", minLength=" + minLength +
                 ", maxLength=" + maxLength +
                 ", fixedLength=" + fixedLength +
-                ", defaultValue='" + defaultValue + '\'' +
+                ", defaultValue=" + defaultValue +
                 ", formatMask='" + formatMask + '\'' +
                 ", range='" + range + '\'' +
-                ", suffix='" + suffix + '\'' +
-                ", prefix='" + prefix + '\'' +
+                ", suffix=" + suffix +
+                ", prefix=" + prefix +
+                ", minValue=" + minValue +
+                ", maxValue=" + maxValue +
+                ", padding='" + padding + '\'' +
                 '}';
     }
 }

@@ -1,27 +1,27 @@
 package com.mockgenerator.provider;
 
 import com.mockgenerator.configuration.Field;
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 /**
- * Created with IntelliJ IDEA.
+ * This class is the abstract implementation of the ValueProvider interface. All value providers should extend this abstract
+ * class
  * User: rixon
  * Date: 22/1/13
  * Time: 3:19 PM
- * This class is the abstract implementation of the ValueProvider interface.All value providers should extend
- * AbstractValueProvider
  */
 abstract class AbstractValueProvider<TYPE> implements ValueProvider<TYPE> {
 
     final Random random = new Random();
-
+    private final Logger LOG = Logger.getLogger(AbstractValueProvider.class);
 
     /**
      * This method allows the provider to fetch a random value from the given range that user has supplied.
-     *
      * @param values list of values that user has specified
      * @return a value from within the list
      */
@@ -34,19 +34,36 @@ abstract class AbstractValueProvider<TYPE> implements ValueProvider<TYPE> {
         return randomValue;
     }
 
+    /**
+     * This method is required to generate random value based on minimum and maximum value specified in the range.
+     * The default implementation in the Abstract class will simply return either min or max value.
+     * This needs to be overridden in the subclasses in case a different behavior is required
+     * @param minValue the starting value in the range
+     * @param maxValue the ending value in the range
+     * @return the random value
+     */
+    protected TYPE randomValueFromRange(TYPE minValue,TYPE maxValue){
+        if(random.nextInt(2)==0) {
+            return minValue;
+        } else {
+            return maxValue;
+        }
+    }
 
     @Override
     public TYPE randomValue(Field<TYPE> field) {
         TYPE value=null;
-        if(field.getRange()!=null) {
+        if (field.getRange() != null) {
             List<TYPE> values = (List<TYPE>) Arrays.asList(field.getRange().split(","));
             value = randomValueFromRange(values);
             return value;
         }
-        //TODO how to make this cleaner?
-        if(field.getFormatMask()!=null) {
-            String stringValue = formattedRandomValue(field.getMinLength(),field.getMaxLength(),field.getFormatMask());
-            value = formatValueFromString(stringValue);
+
+        //If min max values are specified they take precedence over length
+        if (field.getMinValue()!=null && field.getMaxValue()!=null){
+            TYPE minValue = field.getMinValue();
+            TYPE maxValue = field.getMaxValue();
+            value = randomValueFromRange(minValue,maxValue);
             return value;
         }
 
@@ -70,10 +87,49 @@ abstract class AbstractValueProvider<TYPE> implements ValueProvider<TYPE> {
         return value;
     }
 
+    @Override
+    public String randomValueAsString(Field<TYPE> field) {
+        TYPE randomValue = randomValue(field);
+        String stringValue=randomValue.toString();
+        if (field.getPadding()!=null){
+            long maxLength=field.getMaxLength()!=0?field.getMaxLength():field.getFixedLength();
+            stringValue =paddedRandomValue(field.getPadding(),randomValue,maxLength);
+        }
+        return stringValue;
+    }
+
+    /**
+     * This method is used to apply padding to a random value to make it the required length
+     * @param padding the value to be padded
+     * @param value the generated random value
+     * @param maxLength the maximum length of the random value
+     * @return the padded random value as String
+     */
+    private String paddedRandomValue(String padding,TYPE value,long maxLength) {
+        long paddingLength = maxLength - value.toString().length();
+        String formattedValue = value.toString();
+        if (paddingLength<=0){
+            return formattedValue;
+        }
+
+        StringBuilder valueWithPadding = new StringBuilder(padding);
+        while(valueWithPadding.length()<paddingLength){
+            valueWithPadding.append(padding);
+        }
+
+        valueWithPadding.append(value.toString());
+        if (valueWithPadding.length()>maxLength){
+            formattedValue = valueWithPadding.substring(0,(int)maxLength);
+        } else {
+            formattedValue = valueWithPadding.toString();
+        }
+        return formattedValue;
+    }
+
     /**
      * This method can be used by Type specific value providers to convert a string value to a Type specifiv value
-     * @param stringValue
-     * @return
+     * @param stringValue the value in String format
+     * @return the random value
      */
     abstract TYPE formatValueFromString(String stringValue);
 
@@ -110,14 +166,12 @@ abstract class AbstractValueProvider<TYPE> implements ValueProvider<TYPE> {
     }
 
     /**
-     * This method will provide the random value formatted as a String per a given format mask.
-     * @param minLength the min length of the random value. a value of -1 means that length is ignored
-     * @param maxLength the max length of the random value. a value of -1 means that length is ignored
-     * @param formatMask the format of the output data. e.g for Date it could be DD/MM/YYYY. For ssn's it could be
-     *                   ###-##-####. for telephone numbers it could be ###-###-####. This allows the value being
-     *                   returned to be formatted as per user requirements
-     * @return the random value as per a given format
+     * This method can be used to control the precision on the numbers
+     * @param value
+     * @param field
+     * @return
      */
-    abstract String formattedRandomValue(long minLength,long maxLength,String formatMask);
-
+    protected TYPE applyPrecisionForNumbers(TYPE value,Field<TYPE> field){
+        return value;
+    }
 }

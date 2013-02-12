@@ -1,5 +1,6 @@
 package com.mockgenerator.provider;
 
+import com.mockgenerator.configuration.Field;
 import com.mockgenerator.util.DateUtil;
 
 import java.util.Date;
@@ -26,8 +27,8 @@ public class DateValueProvider extends AbstractValueProvider<Date> {
     }
 
     @Override
-    public String formattedRandomValue(long minLength, long maxLength, String formatMask) {
-        Date randomDate = randomValue(minLength,maxLength);
-        return DateUtil.getFormattedDate(randomDate,formatMask);
+    public String randomValueAsString(Field<Date> field) {
+        Date randomValue = super.randomValue(field);
+        return DateUtil.getFormattedDate(randomValue,field.getFormatMask());
     }
 }

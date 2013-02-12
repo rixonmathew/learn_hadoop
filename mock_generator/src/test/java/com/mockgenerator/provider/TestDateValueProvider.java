@@ -1,5 +1,6 @@
 package com.mockgenerator.provider;
 
+import com.mockgenerator.configuration.Field;
 import com.mockgenerator.util.DateUtil;
 import org.junit.After;
 import org.junit.Before;
@@ -49,5 +50,28 @@ public class TestDateValueProvider {
             System.out.println("value = " + DateUtil.getDateAsString(value));
         }
 
+    }
+    @Test
+    public void testDateValueProviderAsString() {
+        Field<Date> field = mockField();
+        for (int i=0;i<1000;i++) {
+            System.out.println("date = " + dateValueProvider.randomValueAsString(field));
+        }
+    }
+
+    @Test
+    public void testDateFormatCheck(){
+        for (int i=0;i<1000;i++){
+            Date date = dateValueProvider.randomValue();
+            System.out.printf("%s formatted(YYYYMMDD): %s \n",date.toString(),DateUtil.getFormattedDate(date,"dd-MM-YYYY"));
+        }
+    }
+
+    private Field<Date> mockField() {
+        Field<Date> dateField = new Field<Date>();
+        dateField.setType("date");
+        dateField.setFormatMask("YYYYMMDD");
+        dateField.setFixedLength(8);
+        return dateField;
     }
 }

@@ -27,11 +27,6 @@ public class AlphaNumericValueProvider extends AbstractValueProvider<String> {
         return randomAlphaNumericValue(length);
     }
 
-    @Override
-    public String formattedRandomValue(long minLength, long maxLength, String formatMask) {
-        return randomValue(minLength,maxLength); //TODO check on how format mask can be used for alpha numeric
-    }
-
     private String randomAlphaNumericValue(int length) {
         char[] chars = new char[length];
         for  (int i=0;i<length;i++){

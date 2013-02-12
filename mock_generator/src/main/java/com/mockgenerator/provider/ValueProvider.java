@@ -25,7 +25,15 @@ public interface ValueProvider<TYPE> {
      * a simple interface for the consumer to get a random value based on the constraints that have been defined
      * in the field instance
      * @param field the field property
-     * @return
+     * @return the generated random value
      */
     public TYPE randomValue(Field<TYPE> field);
+
+    /**
+     * This method will format the random value as per constraints defined in the field. In scenarios where random
+     * values needs to be written to a file the random value is needed as String and not as Type.
+     * @param field the field property
+     * @return the generated random value;
+     */
+    public String randomValueAsString(Field<TYPE> field);
 }

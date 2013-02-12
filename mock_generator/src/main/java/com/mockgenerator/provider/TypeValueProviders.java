@@ -20,6 +20,7 @@ public class TypeValueProviders {
         valueProviders.put("int",new IDValueProvider());
         valueProviders.put("String",new StringValueProvider());
         valueProviders.put("Date",new DateValueProvider());
+        valueProviders.put("BigDecimal",new BigDecimalValueProvider());
         //valueProviders.put("AlphaNumeric",new AlphaNumericValueProvider()); //TODO this needs to be added later on
     }
 

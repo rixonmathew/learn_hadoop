@@ -41,11 +41,6 @@ public class StringValueProvider extends AbstractValueProvider<String> {
         return StringUtil.replaceSuffix(value,suffix);
     }
 
-    @Override
-    public String formattedRandomValue(long minLength, long maxLength, String formatMask) {
-        return randomValue(minLength,maxLength);//TODO implement when there is a requirement
-    }
-
     private String randomStringValue(int length) {
         char[] chars = new char[length];
         for  (int i=0;i<length;i++){

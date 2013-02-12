@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,11 +16,13 @@ import java.util.Date;
  * This class is date based util class that provides utility methods for formatting dates
  */
 public class DateUtil {
-    private static final DateFormat dateFormat = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
+
+    private final static String DEFAULT_DATE_FORMAT = "d/m/Y";
+    private static final Map<String,DateFormat> formatters = new HashMap<String,DateFormat>();
 
     public synchronized static Date getFormattedDate(String dateString) {
         try {
-            //return SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT).parse(dateString);
+            DateFormat dateFormat = getFormatter(DEFAULT_DATE_FORMAT);
             return dateFormat.parse(dateString);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -31,12 +35,27 @@ public class DateUtil {
     }
 
     public synchronized static String getFormattedDate(Date date, String formatMask) {
-        //TODO research on how format can be checked
-        return getDateAsString(date);
+
+        DateFormat format = getFormatter(formatMask);
+        return format.format(date);
     }
 
 
     public synchronized static String getDateAsString(Date date) {
+        DateFormat dateFormat = getFormatter(DEFAULT_DATE_FORMAT);
         return dateFormat.format(date);
+    }
+
+    private static DateFormat getFormatter(String formatMask) {
+
+        DateFormat dateFormatter = null;
+        if (formatters.containsKey(formatMask)){
+            dateFormatter = formatters.get(formatMask);
+        }  else {
+            dateFormatter = new SimpleDateFormat(formatMask);
+            formatters.put(formatMask,dateFormatter);
+        }
+
+        return dateFormatter;
     }
 }
