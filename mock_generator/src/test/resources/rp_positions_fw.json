@@ -59,7 +59,7 @@
             "name":"PriceDeliveryTimeStamp",
             "type":"Timestamp",
             "fixedLength":14,
-            "format":"YYYYMMDDHHMMSS"
+            "format":"yyyyMMddHHmmss"
         },
         {
             "name":"ExchangeRateUsed",
@@ -73,7 +73,7 @@
             "name":"ExchangeRateDeliveryTimeStamp",
             "type":"Timestamp",
             "fixedLength":14,
-            "format":"YYYYMMDDHHMMSS"
+            "format":"yyyyMMddHHmmss"
         },
         {
             "name":"AccruedInterestAmount",
@@ -131,8 +131,7 @@
             "name":"KeyFigureDate",
             "type":"Date",
             "fixedLength":8,
-            "format":"YYYYMMDD",
-            "range":"19500101..20130101"
+            "format":"yyyyMMdd"
         }
     ]
 }

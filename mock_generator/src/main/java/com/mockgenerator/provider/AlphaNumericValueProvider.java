@@ -17,11 +17,6 @@ public class AlphaNumericValueProvider extends AbstractValueProvider<String> {
     }
 
     @Override
-    String formatValueFromString(String stringValue) {
-        return stringValue;
-    }
-
-    @Override
     public String randomValue(long minLength, long maxLength) {
         int length = (int)minLength +(int)(Math.random()*(maxLength-minLength));
         return randomAlphaNumericValue(length);

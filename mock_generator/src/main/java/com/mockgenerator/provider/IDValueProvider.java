@@ -15,11 +15,6 @@ public class IDValueProvider extends AbstractValueProvider<Long> {
     }
 
     @Override
-    Long formatValueFromString(String stringValue) {
-        return Long.valueOf(stringValue);
-    }
-
-    @Override
     public Long randomValue(long minLength, long maxLength) {
         long value;
         long minimumValue,maxValue;

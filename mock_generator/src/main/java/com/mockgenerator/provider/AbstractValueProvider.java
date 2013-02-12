@@ -127,13 +127,6 @@ abstract class AbstractValueProvider<TYPE> implements ValueProvider<TYPE> {
     }
 
     /**
-     * This method can be used by Type specific value providers to convert a string value to a Type specifiv value
-     * @param stringValue the value in String format
-     * @return the random value
-     */
-    abstract TYPE formatValueFromString(String stringValue);
-
-    /**
      * This overloaded method will generate a random value conforming to the input parameters passed
      * @param minLength the min length of the random value. a value of -1 means that length is ignored
      * @param maxLength the max length of the random value. a value of -1 means that length is ignored

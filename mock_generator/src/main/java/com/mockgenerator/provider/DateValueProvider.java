@@ -17,18 +17,14 @@ public class DateValueProvider extends AbstractValueProvider<Date> {
     }
 
     @Override
-    Date formatValueFromString(String stringValue) {
-        return DateUtil.getFormattedDate(stringValue);
-    }
-
-    @Override
     public Date randomValue(long minLength, long maxLength) {
         return randomValue();
     }
 
     @Override
     public String randomValueAsString(Field<Date> field) {
-        Date randomValue = super.randomValue(field);
-        return DateUtil.getFormattedDate(randomValue,field.getFormatMask());
+        Date randomValue = randomValue();
+        String formatMask = field.getFormatMask()!=null?field.getFormatMask():"YmdHMS:L:N";
+        return DateUtil.getFormattedDate(randomValue,formatMask);
     }
 }

@@ -12,11 +12,6 @@ import java.math.BigDecimal;
 public class BigDecimalValueProvider extends AbstractValueProvider<BigDecimal>{
 
     @Override
-    BigDecimal formatValueFromString(String stringValue) {
-        return roundedValue(BigDecimal.valueOf(Double.valueOf(stringValue)));
-    }
-
-    @Override
     BigDecimal randomValue(long minLength, long maxLength) {
         BigDecimal value;
         BigDecimal minimumValue,maxValue;

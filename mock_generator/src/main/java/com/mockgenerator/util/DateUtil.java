@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public class DateUtil {
 
-    private final static String DEFAULT_DATE_FORMAT = "d/m/Y";
+    private final static String DEFAULT_DATE_FORMAT = "dd/MM/yyyy";
     private static final Map<String,DateFormat> formatters = new HashMap<String,DateFormat>();
 
     public synchronized static Date getFormattedDate(String dateString) {
