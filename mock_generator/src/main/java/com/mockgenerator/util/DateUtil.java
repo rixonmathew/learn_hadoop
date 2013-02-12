@@ -34,7 +34,6 @@ public class DateUtil {
     }
 
     public synchronized static String getFormattedDate(Date date, String formatMask) {
-
         DateFormat format = getFormatter(formatMask);
         return format.format(date);
     }
@@ -51,6 +50,7 @@ public class DateUtil {
         if (formatters.containsKey(formatMask)){
             dateFormatter = formatters.get(formatMask);
         }  else {
+            if (formatMask==null) formatMask=DEFAULT_DATE_FORMAT;
             dateFormatter = new SimpleDateFormat(formatMask);
             formatters.put(formatMask,dateFormatter);
         }

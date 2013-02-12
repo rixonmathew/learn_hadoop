@@ -61,8 +61,8 @@ abstract class AbstractValueProvider<TYPE> implements ValueProvider<TYPE> {
 
         //If min max values are specified they take precedence over length
         if (field.getMinValue()!=null && field.getMaxValue()!=null){
-            TYPE minValue = field.getMinValue();
-            TYPE maxValue = field.getMaxValue();
+            TYPE minValue = valueFromString(field.getMinValue());
+            TYPE maxValue = valueFromString(field.getMaxValue());
             value = randomValueFromRange(minValue,maxValue);
             return value;
         }
@@ -125,6 +125,13 @@ abstract class AbstractValueProvider<TYPE> implements ValueProvider<TYPE> {
         }
         return formattedValue;
     }
+
+    /**
+     * This method is used to convert from String to specific type to avoid casting errors
+     * @param value
+     * @return
+     */
+    protected abstract TYPE valueFromString(String value);
 
     /**
      * This overloaded method will generate a random value conforming to the input parameters passed

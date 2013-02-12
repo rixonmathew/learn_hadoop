@@ -3,6 +3,7 @@ import com.mockgenerator.configuration.Schema;
 import com.mockgenerator.configuration.SchemaParser;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static junit.framework.Assert.assertNotNull;

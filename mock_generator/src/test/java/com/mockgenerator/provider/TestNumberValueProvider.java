@@ -34,10 +34,12 @@ public class TestNumberValueProvider {
     @Test
     public void testBasicValueProvider() {
         Field<BigDecimal> numberField = mockField();
+        BigDecimal minValue = BigDecimal.valueOf(Double.valueOf(numberField.getMinValue()));
+        BigDecimal maxValue = BigDecimal.valueOf(Double.valueOf(numberField.getMaxValue()));
         for (int i=0;i<1000;i++) {
             BigDecimal randomValue = valueProvider.randomValue(numberField);
-            int compareToMin = randomValue.compareTo(numberField.getMinValue());
-            int compareToMax = randomValue.compareTo(numberField.getMaxValue());
+            int compareToMin = randomValue.compareTo(minValue);
+            int compareToMax = randomValue.compareTo(maxValue);
             assertThat(Integer.valueOf(compareToMin),is(1));
             assertThat(Integer.valueOf(compareToMax),is(-1));
             //System.out.println("randomValue = " + randomValue);
@@ -56,8 +58,8 @@ public class TestNumberValueProvider {
     private Field<BigDecimal> mockField() {
         Field<BigDecimal> numberField = new Field<BigDecimal>();
         numberField.setFixedLength(25);
-        numberField.setMinValue(BigDecimal.valueOf(1000));
-        numberField.setMaxValue(BigDecimal.valueOf(10000000000000000L));
+        numberField.setMinValue("1000");
+        numberField.setMaxValue("10000000000000000");
         numberField.setPadding("0");
         return numberField;
     }

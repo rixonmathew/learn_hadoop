@@ -6,8 +6,8 @@
             "name":"id",
             "type":"BigDecimal",
             "fixedLength":9,
-            "minValue":100,
-            "maxValue":10000,
+            "minValue":10000,
+            "maxValue":10500,
             "padding":"0"
         },
         {
@@ -59,7 +59,7 @@
             "name":"PriceDeliveryTimeStamp",
             "type":"Timestamp",
             "fixedLength":14,
-            "format":"yyyyMMddHHmmss"
+            "formatMask":"yyyyMMddHHmmss"
         },
         {
             "name":"ExchangeRateUsed",
@@ -73,7 +73,7 @@
             "name":"ExchangeRateDeliveryTimeStamp",
             "type":"Timestamp",
             "fixedLength":14,
-            "format":"yyyyMMddHHmmss"
+            "formatMask":"yyyyMMddHHmmss"
         },
         {
             "name":"AccruedInterestAmount",
@@ -131,7 +131,7 @@
             "name":"KeyFigureDate",
             "type":"Date",
             "fixedLength":8,
-            "format":"yyyyMMdd"
+            "formatMask":"yyyyMMdd"
         }
     ]
 }

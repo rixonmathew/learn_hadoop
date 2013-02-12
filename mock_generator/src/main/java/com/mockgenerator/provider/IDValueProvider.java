@@ -15,6 +15,11 @@ public class IDValueProvider extends AbstractValueProvider<Long> {
     }
 
     @Override
+    protected Long valueFromString(String value) {
+        return Long.valueOf(value);
+    }
+
+    @Override
     public Long randomValue(long minLength, long maxLength) {
         long value;
         long minimumValue,maxValue;

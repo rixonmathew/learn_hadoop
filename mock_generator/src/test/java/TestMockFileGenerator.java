@@ -29,6 +29,25 @@ public class TestMockFileGenerator {
         validateFixedWidthMockFileCreation(fixedWidthSchemaName);
     }
 
+    @Test
+    public void testMockPositionsFixedWidthFileGeneration() throws IOException{
+        String fixedWidthSchemaName="/home/rixon/workspace/workspace_misc/learn_hadoop/mock_generator/src/test/resources/rp_positions_fw.json";
+        validatePositionsFixedWidthMockFileCreation(fixedWidthSchemaName);
+
+    }
+
+
+    private void validatePositionsFixedWidthMockFileCreation(String schemaName) throws IOException {
+        int expectedMockLength = 287;
+        Schema schema = SchemaParser.parse(schemaName);
+        final String outputDirectory = schemaName.substring(0,schemaName.indexOf("."));
+        Options options = createMockOptions(outputDirectory, "random");
+        FileGenerator fileGenerator = new FileGenerator(options,schema);
+        assertFiles(options, fileGenerator);
+        assertRecordLength(options,expectedMockLength);
+    }
+
+
     private void validateFixedWidthMockFileCreation(String schemaName) throws IOException {
         int expectedMockLength = 143;
         Schema schema = SchemaParser.parse(schemaName);

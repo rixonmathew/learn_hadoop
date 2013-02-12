@@ -31,4 +31,9 @@ public class TimestampValueProvider extends AbstractValueProvider<Date> {
         Date randomValue = super.randomValue(field);
         return DateUtil.getFormattedDate(randomValue, field.getFormatMask());
     }
+
+    @Override
+    protected Date valueFromString(String value) {
+        return DateUtil.getFormattedDate(value);
+    }
 }

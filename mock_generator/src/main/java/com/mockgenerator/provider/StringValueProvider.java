@@ -17,6 +17,11 @@ public class StringValueProvider extends AbstractValueProvider<String> {
     }
 
     @Override
+    protected String valueFromString(String value) {
+        return value;
+    }
+
+    @Override
     public String randomValue(long minLength, long maxLength) {
         StringBuilder placeHolder = new StringBuilder();
         int length = (int)(minLength+(int)(Math.random()*(maxLength-minLength)));

@@ -18,8 +18,8 @@ public class Field<TYPE> {
     private String range;
     private TYPE suffix;
     private TYPE prefix;
-    private TYPE minValue;
-    private TYPE maxValue;
+    private String minValue;
+    private String maxValue;
     private String padding;
 
     public String getName() {
@@ -102,19 +102,19 @@ public class Field<TYPE> {
         this.prefix = prefix;
     }
 
-    public TYPE getMinValue() {
+    public String getMinValue() {
         return minValue;
     }
 
-    public void setMinValue(TYPE minValue) {
+    public void setMinValue(String minValue) {
         this.minValue = minValue;
     }
 
-    public TYPE getMaxValue() {
+    public String getMaxValue() {
         return maxValue;
     }
 
-    public void setMaxValue(TYPE maxValue) {
+    public void setMaxValue(String maxValue) {
         this.maxValue = maxValue;
     }
 

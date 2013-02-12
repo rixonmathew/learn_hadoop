@@ -33,7 +33,14 @@ public class BigDecimalValueProvider extends AbstractValueProvider<BigDecimal>{
         return roundedValue(value);
    }
 
-   private BigDecimal roundedValue(BigDecimal inputValue) {
+    @Override
+    protected BigDecimal valueFromString(String value) {
+        return BigDecimal.valueOf(Double.valueOf(value));
+    }
+
+    private BigDecimal roundedValue(BigDecimal inputValue) {
        return inputValue.setScale(0,BigDecimal.ROUND_HALF_UP);
    }
+
+
 }

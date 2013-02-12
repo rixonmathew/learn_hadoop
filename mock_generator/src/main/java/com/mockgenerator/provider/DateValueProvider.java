@@ -27,4 +27,9 @@ public class DateValueProvider extends AbstractValueProvider<Date> {
         String formatMask = field.getFormatMask()!=null?field.getFormatMask():"YmdHMS:L:N";
         return DateUtil.getFormattedDate(randomValue,formatMask);
     }
+
+    @Override
+    protected Date valueFromString(String value) {
+        return DateUtil.getFormattedDate(value);
+    }
 }
