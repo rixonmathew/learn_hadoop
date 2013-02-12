@@ -57,9 +57,9 @@ public class TestMockFileGenerator {
         File[] files = file.listFiles();
         assertNotNull(files);
         assertThat((long) files.length,is(options.getNumberOfFileSplits()));
-        for (File file1:files) {
-            System.out.println("file1 = " + file1.getName());
-        }
+//        for (File file1:files) {
+//            System.out.println("file1 = " + file1.getName());
+//        }
     }
 
 
@@ -69,11 +69,9 @@ public class TestMockFileGenerator {
         File[] files = file.listFiles();
         assertNotNull(files);
         for(File file1:files) {
-            //System.out.println("file1 = " + file1.getName());
             BufferedReader reader = new BufferedReader(new FileReader(file1));
             String record;
             while ((record=reader.readLine())!=null){
-                //System.out.println("    record = " + record.length());
                 assertThat(expectedMockLength,is(record.length()));
             }
         }

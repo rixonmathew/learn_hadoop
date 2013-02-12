@@ -32,9 +32,9 @@ public class TestJSONConfigReader {
         List<Field> fields = schema.getFields();
         int expectedFields = 5;
         assertThat(fields.size(),is(expectedFields));
-        for (Field field:fields) {
-            System.out.println("field = " + field);
-        }
+//        for (Field field:fields) {
+//            System.out.println("field = " + field);
+//        }
 
     }
 
@@ -50,9 +50,9 @@ public class TestJSONConfigReader {
         List<Field> fields = schema.getFields();
         int expectedFields = 4;
         assertThat(fields.size(),is(expectedFields));
-        for (Field field:fields) {
-            System.out.println("field = " + field);
-        }
+//        for (Field field:fields) {
+//            System.out.println("field = " + field);
+//        }
     }
 
     @Test
@@ -67,8 +67,8 @@ public class TestJSONConfigReader {
         List<Field> fields = schema.getFields();
         int expectedFields = 19;
         assertThat(fields.size(),is(expectedFields));
-        for (Field field:fields) {
-            System.out.println("field = " + field);
-        }
+//        for (Field field:fields) {
+//            System.out.println("field = " + field);
+//        }
     }
 }

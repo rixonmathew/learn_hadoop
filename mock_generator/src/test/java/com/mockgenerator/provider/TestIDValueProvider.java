@@ -33,13 +33,13 @@ public class TestIDValueProvider {
         valueProvider = null;
     }
 
-    @Test
-    public void testRandomValueProviderWithNoLimits() {
-        int tries = 100;
-        for (int i=0;i<tries;i++){
-            System.out.println("valueProvider = " + valueProvider.randomValue());
-        }
-    }
+//    @Test
+//    public void testRandomValueProviderWithNoLimits() {
+//        int tries = 100;
+//        for (int i=0;i<tries;i++){
+//            System.out.println("valueProvider = " + valueProvider.randomValue());
+//        }
+//    }
 
     @Test
     public void testRandomValueProviderWithLimits() {
@@ -48,7 +48,7 @@ public class TestIDValueProvider {
         int maxLength = 15;
         for (int i=0;i<tries;i++) {
             Long randomValue = valueProvider.randomValue(minLength, maxLength);
-            System.out.println("randomValue = " + randomValue);
+            //System.out.println("randomValue = " + randomValue);
             int valueLength = String.valueOf(randomValue).length();
             assertThat(valueLength,is(greaterThanOrEqualTo(minLength)));
             assertThat(valueLength,is(lessThanOrEqualTo(maxLength)));
@@ -61,7 +61,7 @@ public class TestIDValueProvider {
         for (int i=0;i<100;i++) {
             Long randomValue = valueProvider.randomValueFromRange(randomValues);
             assertTrue(randomValues.contains(randomValue));
-            System.out.println("randomValue = " + randomValue);
+            //System.out.println("randomValue = " + randomValue);
         }
     }
 
@@ -71,7 +71,7 @@ public class TestIDValueProvider {
         int expectedLength=9;
         for (int i=0;i<100;i++) {
             Long value = valueProvider.randomValueWithPrefix(expectedLength,expectedLength,prefix);
-            System.out.println("value = " + value);
+            //System.out.println("value = " + value);
         }
     }
 
@@ -80,7 +80,7 @@ public class TestIDValueProvider {
         int expectedLength=15;
         for (int i=0;i<100;i++) {
             Long value = valueProvider.randomValue(15,15);
-            System.out.println("value = " + value);
+            //System.out.println("value = " + value);
             assertThat(String.valueOf(value).length(),is(expectedLength));
         }
     }

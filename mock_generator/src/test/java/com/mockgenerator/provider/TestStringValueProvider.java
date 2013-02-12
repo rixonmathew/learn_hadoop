@@ -32,19 +32,11 @@ public class TestStringValueProvider {
     }
 
     @Test
-    public void testRandomValueWithNoLimits(){
-        for (int i=0;i<100;i++) {
-            System.out.println("stringValueProvider = " + stringValueProvider.randomValue());
-        }
-    }
-
-    @Test
     public void testRandomValueWithinLimits() {
         int minLength = 2;
         int maxLength = 25;
         for (int i=0;i<100;i++) {
             String randomValue = stringValueProvider.randomValue(minLength, maxLength);
-            System.out.println("stringValueProvider = " + randomValue);
             assertThat(randomValue.length(), is(greaterThanOrEqualTo(minLength)));
             assertThat(randomValue.length(),is(lessThanOrEqualTo(maxLength)));
         }
@@ -56,7 +48,6 @@ public class TestStringValueProvider {
         for (int i=0;i<100;i++){
             String value = stringValueProvider.randomValueFromRange(randomValues);
             assertTrue(randomValues.contains(value));
-            System.out.println("value = " + value);
         }
     }
 
@@ -67,7 +58,6 @@ public class TestStringValueProvider {
         for (int i=0;i<100;i++) {
             String value = stringValueProvider.randomValueWithPrefix(expectedLength,expectedLength,prefix);
             assertThat(value.length(),is(expectedLength));
-            System.out.println("value = " + value);
         }
     }
 
@@ -98,7 +88,6 @@ public class TestStringValueProvider {
         for (int i=0;i<100;i++) {
             String value = stringValueProvider.randomValueWithSuffix(expectedLength,expectedLength,suffix);
             assertThat(value.length(),is(expectedLength));
-            System.out.println("value = " + value);
         }
 
     }

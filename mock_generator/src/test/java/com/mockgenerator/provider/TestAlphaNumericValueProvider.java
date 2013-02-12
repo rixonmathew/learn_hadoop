@@ -38,12 +38,12 @@ public class TestAlphaNumericValueProvider {
         valueProvider = null;
     }
 
-    @Test
-    public void testValues() {
-        for (int i=0;i<1000;i++) {
-            System.out.println("valueProvider = " + valueProvider.randomValue());
-        }
-    }
+//    @Test
+//    public void testValues() {
+//        for (int i=0;i<1000;i++) {
+//            System.out.println("valueProvider = " + valueProvider.randomValue());
+//        }
+//    }
 
     @Test
     public void testValuesWithinSpecifiedLength() {
@@ -51,7 +51,7 @@ public class TestAlphaNumericValueProvider {
             int minLength = 10;
             int maxLength = 20;
             String randomValue = valueProvider.randomValue(minLength, maxLength);
-            System.out.println("randomValue = " +i+":"+randomValue+" length : "+randomValue.length());
+            //System.out.println("randomValue = " +i+":"+randomValue+" length : "+randomValue.length());
             assertThat(randomValue.length(), is(greaterThanOrEqualTo(minLength)));
             assertThat(randomValue.length(),is(lessThanOrEqualTo(maxLength)));
         }
@@ -63,7 +63,7 @@ public class TestAlphaNumericValueProvider {
         for (int i=0;i<100;i++) {
             String value = valueProvider.randomValueFromRange(randomValues);
             assertTrue(randomValues.contains(value));
-            System.out.println("value = " + value);
+//            System.out.println("value = " + value);
         }
     }
 

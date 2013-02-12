@@ -33,12 +33,12 @@ public class TestDateValueProvider {
         dateValueProvider = null;
     }
 
-    @Test
-    public void testDateValueProvider() {
-        for (int i=0;i<1000;i++) {
-            System.out.println("dateValueProvider = " + DateUtil.getDateAsString(dateValueProvider.randomValue()));
-        }
-    }
+//    @Test
+//    public void testDateValueProvider() {
+//        for (int i=0;i<1000;i++) {
+//            System.out.println("dateValueProvider = " + DateUtil.getDateAsString(dateValueProvider.randomValue()));
+//        }
+//    }
 
     @Test
     public void testDateValueProviderWithRange() {
@@ -47,23 +47,23 @@ public class TestDateValueProvider {
         for (int i=0;i<100;i++) {
             Date value = dateValueProvider.randomValueFromRange(values);
             assertTrue(values.contains(value));
-            System.out.println("value = " + DateUtil.getDateAsString(value));
+            //System.out.println("value = " + DateUtil.getDateAsString(value));
         }
 
     }
-    @Test
-    public void testDateValueProviderAsString() {
-        Field<Date> field = mockField();
-        for (int i=0;i<1000;i++) {
-            System.out.println("date = " + dateValueProvider.randomValueAsString(field));
-        }
-    }
+//    @Test
+//    public void testDateValueProviderAsString() {
+//        Field<Date> field = mockField();
+//        for (int i=0;i<1000;i++) {
+//            System.out.println("date = " + dateValueProvider.randomValueAsString(field));
+//        }
+//    }
 
     @Test
     public void testDateFormatCheck(){
         for (int i=0;i<1000;i++){
             Date date = dateValueProvider.randomValue();
-            System.out.printf("%s formatted(YYYYMMDD): %s \n",date.toString(),DateUtil.getFormattedDate(date,"dd-MM-YYYY"));
+            //System.out.printf("%s formatted(YYYYMMDD): %s \n",date.toString(),DateUtil.getFormattedDate(date,"dd-MM-YYYY"));
         }
     }
 

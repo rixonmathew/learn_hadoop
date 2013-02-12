@@ -28,7 +28,6 @@ public class DateUtil {
             e.printStackTrace();
             throw new IllegalArgumentException("Invalid date string " + dateString);
         } catch(Exception e) {
-            System.out.println("dateString = [" + dateString + "]");
             e.printStackTrace();
             throw new IllegalArgumentException("Invalid date string " + dateString);
         }

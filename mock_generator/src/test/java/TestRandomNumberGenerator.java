@@ -13,8 +13,8 @@ public class TestRandomNumberGenerator {
     public void testSimpleRandomValues() {
        Random random = new Random();
        //random.setSeed(100l);
-       for(int i=0;i<1000;i++){
-           System.out.println("random = " + random.nextInt(1000));
-       }
+//       for(int i=0;i<1000;i++){
+//           System.out.println("random = " + random.nextInt(1000));
+//       }
     }
 }

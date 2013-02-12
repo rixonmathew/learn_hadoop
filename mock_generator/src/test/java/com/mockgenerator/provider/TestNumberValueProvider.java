@@ -40,7 +40,7 @@ public class TestNumberValueProvider {
             int compareToMax = randomValue.compareTo(numberField.getMaxValue());
             assertThat(Integer.valueOf(compareToMin),is(1));
             assertThat(Integer.valueOf(compareToMax),is(-1));
-            System.out.println("randomValue = " + randomValue);
+            //System.out.println("randomValue = " + randomValue);
         }
     }
 
@@ -49,7 +49,7 @@ public class TestNumberValueProvider {
         Field<BigDecimal> numberField = mockField();
         for (int i=0;i<1000;i++) {
             String stringValue = valueProvider.randomValueAsString(numberField);
-            System.out.println("stringValue = " + stringValue);
+            //System.out.println("stringValue = " + stringValue);
         }
     }
 
