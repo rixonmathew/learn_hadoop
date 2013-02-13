@@ -25,6 +25,7 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="basic_mr" />
+        <module name="hadoop_positions" />
         <module name="mock_generator" />
       </profile>
     </annotationProcessing>

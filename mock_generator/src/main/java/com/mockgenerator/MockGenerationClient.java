@@ -33,6 +33,7 @@ public class MockGenerationClient {
             System.err.println("Usage java jar MockGenerator --file <properties.file>");
             return;
         }
+        long startTime = System.currentTimeMillis();
         String inputPropertiesFileName = args[1];
         Properties properties = loadProperties(inputPropertiesFileName);
         boolean isValid = checkProperties(properties);
@@ -45,6 +46,8 @@ public class MockGenerationClient {
         Options options = createOptions(properties);
         FileGenerator fileGenerator = new FileGenerator(options,schema);
         fileGenerator.generateFiles();
+        long endTime = System.currentTimeMillis();
+        System.out.println("\nTime taken(sec) = " + (endTime-startTime)/1000.0f);
     }
 
     private static boolean checkProperties(Properties properties) {

@@ -79,22 +79,33 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
     }
 
     private void populateFilesWithRandomData() {
+        ProgressReporter progressReporter = new ProgressReporter();
         ExecutorService executorService = Executors.newFixedThreadPool(5);
         for (Long split : filesForSplit.keySet()) {
-            Worker worker = new Worker(split);
+            Worker worker = new Worker(split,progressReporter);
             executorService.execute(worker);
         }
         executorService.shutdown();
         while (!executorService.isTerminated()) {
+            try {
+                System.out.println("Progress = " + progressReporter.overallProgress());
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+            }
         }
     }
 
 
     class Worker implements Runnable {
         Long split;
+        ProgressReporter progressReporter;
+        String taskId;
 
-        Worker(Long split) {
+        Worker(Long split,ProgressReporter progressReporter) {
+            this.progressReporter = progressReporter;
             this.split = split;
+            this.taskId = "task:"+split;
+            progressReporter.updateThreadProgress(taskId,0.0f);
         }
 
         private void populateDataForSplit() throws IOException{
@@ -106,7 +117,9 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
                 String record = recordCreationStrategy.createRecord(schema, options, i);
                 writer.write(record);
                 writer.newLine();
+                progressReporter.updateThreadProgress(taskId,Float.valueOf((i+1)*100.0f/maxRecords));
             }
+
             writer.close();
         }
 
@@ -117,6 +130,33 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
             } catch (IOException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
+        }
+    }
+
+    class ProgressReporter{
+        private int totalTasks;
+        private Map<String,Float> taskProgress = new HashMap<String, Float>();
+
+        synchronized void updateThreadProgress(String taskId,Float progress) {
+           taskProgress.put(taskId,progress);
+        }
+
+        synchronized float overallProgress() {
+            int total=0;
+            int count=0;
+            for(Float value:taskProgress.values()) {
+                total+=value;
+                count++;
+            }
+
+            float overallProgress=0;
+            if(count>0)
+                overallProgress=total/count;
+            return overallProgress;
+        }
+
+        Float threadProgress(String taskId) {
+           return taskProgress.get(taskId);
         }
     }
 

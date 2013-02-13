@@ -33,12 +33,12 @@ public class TestDateValueProvider {
         dateValueProvider = null;
     }
 
-    @Test
-    public void testDateValueProvider() {
-        for (int i=0;i<1000;i++) {
-            System.out.println("dateValueProvider = " + DateUtil.getDateAsString(dateValueProvider.randomValue()));
-        }
-    }
+//    @Test
+//    public void testDateValueProvider() {
+//        for (int i=0;i<1000;i++) {
+//            System.out.println("dateValueProvider = " + DateUtil.getDateAsString(dateValueProvider.randomValue()));
+//        }
+//    }
 
     @Test
     public void testDateValueProviderWithRange() {
