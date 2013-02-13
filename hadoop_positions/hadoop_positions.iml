@@ -49,6 +49,8 @@
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.5.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.ftpserver:ftpserver-core:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.ftpserver:ftpserver-deprecated:1.0.0-M2" level="project" />
+    <orderEntry type="library" name="Maven: org.mongo.hadoop:mongo-hadoop-connector:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.mongodb:mongo-java-driver:2.10.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-all:1.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.mockito:mockito-all:1.8.4" level="project" />

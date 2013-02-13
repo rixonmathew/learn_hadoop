@@ -1,5 +1,7 @@
 package com.samples.hadoop.positions;
 
+import com.mongodb.hadoop.MongoOutputFormat;
+import com.mongodb.hadoop.util.MongoConfigUtil;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.DoubleWritable;
@@ -10,6 +12,9 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
+
+
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,9 +33,11 @@ public class PositionsDriver extends Configured implements Tool {
             return -1;
         }
 
+
         Job job = new Job();
         job.setJarByClass(PositionsDriver.class);
 
+        MongoConfigUtil.setOutputURI(job.getConfiguration(),"mongodb://localhost/test.users");
         FileInputFormat.addInputPath(job,new Path(args[0]));
         FileOutputFormat.setOutputPath(job,new Path(args[1]));
 
@@ -41,6 +48,8 @@ public class PositionsDriver extends Configured implements Tool {
         job.setMapOutputValueClass(VLongWritable.class);
         job.setOutputKeyClass(LongWritable.class);
         job.setOutputValueClass(DoubleWritable.class);
+        job.setOutputFormatClass(MongoOutputFormat.class);
+
         return job.waitForCompletion(true)?1:0;
     }
 
