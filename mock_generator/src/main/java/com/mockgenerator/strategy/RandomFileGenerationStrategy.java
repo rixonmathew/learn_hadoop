@@ -80,7 +80,7 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
 
     private void populateFilesWithRandomData() {
         ProgressReporter progressReporter = new ProgressReporter();
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
         for (Long split : filesForSplit.keySet()) {
             Worker worker = new Worker(split,progressReporter);
             executorService.execute(worker);
@@ -88,13 +88,27 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
         executorService.shutdown();
         while (!executorService.isTerminated()) {
             try {
-                System.out.println("Progress = " + progressReporter.overallProgress());
-                Thread.sleep(2000);
+                //System.out.print("\rProgress==> " + progressReporter.overallProgress()+"%");
+                updateProgress(progressReporter.overallProgress());
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
             }
         }
     }
 
+    private void updateProgress(double progressPercentage) {
+        final int width = 90; // progress bar width in chars
+
+        System.out.print("\r[");
+        int i = 0;
+        for (; i <= (int)(progressPercentage*width*0.01f); i++) {
+            System.out.print("=");
+        }
+        for (; i < width; i++) {
+            System.out.print(" ");
+        }
+        System.out.print("] ==>"+progressPercentage+"%");
+    }
 
     class Worker implements Runnable {
         Long split;
