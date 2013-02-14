@@ -1,5 +1,6 @@
 package com.samples.hadoop.positions;
 
+import org.apache.commons.math.util.MathUtils;
 import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.VLongWritable;
