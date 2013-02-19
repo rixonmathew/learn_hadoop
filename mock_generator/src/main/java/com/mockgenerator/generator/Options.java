@@ -13,12 +13,14 @@ public class Options {
     private long numberOfFileSplits;
     private long numberOfRecordsPerSplit;
     private String outputDirectory;
+    private int numberOfThreads;
 
     public Options() {
         this.generationType = DEFAULT_GENERATION_TYPE;
         this.numberOfFileSplits = 1;
         this.numberOfRecordsPerSplit = 10000;
         this.outputDirectory = OUTPUT_DIR;
+        this.numberOfThreads = 16;
     }
 
     public String getGenerationType() {
@@ -53,4 +55,11 @@ public class Options {
         this.outputDirectory = outputDirectory;
     }
 
+    public int getNumberOfThreads() {
+        return numberOfThreads;
+    }
+
+    public void setNumberOfThreads(int numberOfThreads) {
+        this.numberOfThreads = numberOfThreads;
+    }
 }

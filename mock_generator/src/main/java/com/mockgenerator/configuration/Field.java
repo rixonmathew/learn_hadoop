@@ -13,7 +13,6 @@ public class Field<TYPE> {
     private int minLength;
     private int maxLength;
     private int fixedLength;
-    private TYPE defaultValue;
     private String formatMask;
     private String range;
     private TYPE suffix;
@@ -21,6 +20,7 @@ public class Field<TYPE> {
     private String minValue;
     private String maxValue;
     private String padding;
+    private String constantValue;
 
     public String getName() {
         return name;
@@ -52,14 +52,6 @@ public class Field<TYPE> {
 
     public void setMaxLength(int maxLength) {
         this.maxLength = maxLength;
-    }
-
-    public TYPE getDefaultValue() {
-        return defaultValue;
-    }
-
-    public void setDefaultValue(TYPE defaultValue) {
-        this.defaultValue = defaultValue;
     }
 
     public String getFormatMask() {
@@ -126,6 +118,14 @@ public class Field<TYPE> {
         this.padding = padding;
     }
 
+    public String getConstantValue() {
+        return constantValue;
+    }
+
+    public void setConstantValue(String constantValue) {
+        this.constantValue = constantValue;
+    }
+
     @Override
     public String toString() {
         return "Field{" +
@@ -134,14 +134,14 @@ public class Field<TYPE> {
                 ", minLength=" + minLength +
                 ", maxLength=" + maxLength +
                 ", fixedLength=" + fixedLength +
-                ", defaultValue=" + defaultValue +
                 ", formatMask='" + formatMask + '\'' +
                 ", range='" + range + '\'' +
                 ", suffix=" + suffix +
                 ", prefix=" + prefix +
-                ", minValue=" + minValue +
-                ", maxValue=" + maxValue +
+                ", minValue='" + minValue + '\'' +
+                ", maxValue='" + maxValue + '\'' +
                 ", padding='" + padding + '\'' +
+                ", constantValue='" + constantValue + '\'' +
                 '}';
     }
 }

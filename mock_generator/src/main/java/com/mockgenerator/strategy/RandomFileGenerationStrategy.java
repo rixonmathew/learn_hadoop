@@ -80,7 +80,7 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
 
     private void populateFilesWithRandomData() {
         ProgressReporter progressReporter = new ProgressReporter();
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        ExecutorService executorService = Executors.newFixedThreadPool(options.getNumberOfThreads());
         for (Long split : filesForSplit.keySet()) {
             Worker worker = new Worker(split,progressReporter);
             executorService.execute(worker);
@@ -94,6 +94,8 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
             } catch (InterruptedException e) {
             }
         }
+        updateProgress(100.0d);
+        System.out.println();
     }
 
     private void updateProgress(double progressPercentage) {

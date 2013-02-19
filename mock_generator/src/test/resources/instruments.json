@@ -5,8 +5,7 @@
         {
             "name":"id",
             "type":"int",
-            "fixedLength":15,
-            "defaultValue":"100"
+            "fixedLength":15
         },
         {
             "name":"CUSIP",
@@ -24,6 +23,11 @@
             "name":"type",
             "type":"String",
             "range":"EQU,BON,FUT,OPT,WAR"
+        },
+        {
+            "name":"owner",
+            "type":"String",
+            "constantValue":"ICICI"
         }
     ]
 }

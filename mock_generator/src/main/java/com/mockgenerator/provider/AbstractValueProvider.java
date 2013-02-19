@@ -53,6 +53,11 @@ abstract class AbstractValueProvider<TYPE> implements ValueProvider<TYPE> {
     @Override
     public TYPE randomValue(Field<TYPE> field) {
         TYPE value=null;
+        if(field.getConstantValue()!=null){
+            value= valueFromString(field.getConstantValue());
+            return value;
+        }
+
         if (field.getRange() != null) {
             List<TYPE> values = (List<TYPE>) Arrays.asList(field.getRange().split(","));
             value = randomValueFromRange(values);
@@ -81,9 +86,6 @@ abstract class AbstractValueProvider<TYPE> implements ValueProvider<TYPE> {
         }
 
         value = randomValue(minLength,maxLength);
-        if(value==null){
-            value = field.getDefaultValue();
-        }
         return value;
     }
 

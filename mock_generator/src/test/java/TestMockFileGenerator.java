@@ -49,7 +49,7 @@ public class TestMockFileGenerator {
 
 
     private void validateFixedWidthMockFileCreation(String schemaName) throws IOException {
-        int expectedMockLength = 143;
+        int expectedMockLength = 148;
         Schema schema = SchemaParser.parse(schemaName);
         final String outputDirectory = schemaName.substring(0,schemaName.indexOf("."));
         Options options = createMockOptions(outputDirectory, "random");

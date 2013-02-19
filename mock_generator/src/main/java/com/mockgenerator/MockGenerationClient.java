@@ -21,11 +21,13 @@ public class MockGenerationClient {
     private static final int DEFAULT_NUMBER_OF_SPLITS = 5;
     private static final String DEFAULT_OUTPUT_DIR = "output_"+System.currentTimeMillis();
     private static final long DEFAULT_RECORDS_PER_SPLIT = 10000;
+    private static final int DEFAULT_THREADS = 16;
     private static final String SCHEMA = "schema";
     private static final String RECORDS_PER_SPLIT = "recordsPerSplit";
     private static final String OUTPUT_DIRECTORY = "outputDirectory";
     private static final String NUMBER_OF_SPLITS = "numberOfSplits";
     private static final String GENERATION_TYPE = "generationType";
+    private static final String THREADS = "threads";
 
     public static void main(String[] args) throws IOException {
         //TODO create the options and start the job
@@ -47,7 +49,7 @@ public class MockGenerationClient {
         FileGenerator fileGenerator = new FileGenerator(options,schema);
         fileGenerator.generateFiles();
         long endTime = System.currentTimeMillis();
-        System.out.println("\nTime taken(sec) = " + (endTime-startTime)/1000.0f);
+        System.out.println("\nTime taken = " + (endTime-startTime)/1000.0f+" secs");
     }
 
     private static boolean checkProperties(Properties properties) {
@@ -81,7 +83,17 @@ public class MockGenerationClient {
         setNumberOfSplits(properties, options);
         setOutputDirectory(properties, options);
         setRecordCount(properties, options);
+        setNumberOfThreads(properties,options);
         return options;
+    }
+
+    private static void setNumberOfThreads(Properties properties, Options options) {
+        String threadCount = properties.getProperty(THREADS);
+        int numberOfThread = DEFAULT_THREADS;
+        if (threadCount!=null && !threadCount.isEmpty()){
+         numberOfThread = Integer.valueOf(threadCount);
+        }
+        options.setNumberOfThreads(numberOfThread);
     }
 
     private static void setRecordCount(Properties properties, Options options) {

@@ -2,7 +2,8 @@ This module generates mock files to be used as input for MapReduce jobs. the inp
 Addtional parameters that can be passed from command line are
 1) number of file splits to create - default 1
 2) number of records per split - default 10000
-3) mode of generation:(random,prototype) : default random, if prototype is used then a json file should be specified that provides the propoties for prototypes
+3) mode of generation:(random,prototype) : default random, if prototype is used then a json file should be specified that
+    provides the properties for prototypes
 4) output directory -- default output_<currenttime> where the file splits are created
 
 To run this program following steps needs to be done
@@ -17,7 +18,7 @@ To run this program following steps needs to be done
 
 The type of random values that can be generated
 1) Random numbers of certain length
-2) Random string of certain lenght
+2) Random string of certain length
 3) Random alphanumeric string
 4) Random values from a given range e.g. a field Designation should be of value only from CEO,Manager,Developer,Tester
 5) Random values for a number between two values only (100001..1000101).

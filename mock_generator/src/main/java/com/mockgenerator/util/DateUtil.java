@@ -39,12 +39,12 @@ public class DateUtil {
     }
 
 
-    public synchronized static String getDateAsString(Date date) {
+    public  static String getDateAsString(Date date) {
         DateFormat dateFormat = getFormatter(DEFAULT_DATE_FORMAT);
         return dateFormat.format(date);
     }
 
-    private static DateFormat getFormatter(String formatMask) {
+    private synchronized static DateFormat getFormatter(String formatMask) {
 
         /*
         //TODO Using shared dateFormatter is not working in multi threaded environment
@@ -64,6 +64,5 @@ public class DateUtil {
             return new SimpleDateFormat(DEFAULT_DATE_FORMAT);
         }
         return new SimpleDateFormat(formatMask);
-
     }
 }

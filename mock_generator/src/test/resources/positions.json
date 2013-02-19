@@ -7,27 +7,23 @@
           "name":"id",
           "type":"int",
           "minLength":"1",
-          "maxLength":"10",
-          "defaultValue":"100"
+          "maxLength":"10"
         },
         {
           "name":"name",
           "type":"String",
           "minLength":"40",
-          "maxLength":"50",
-          "defaultValue":"Rixon Mathew"
+          "maxLength":"50"
         },
         {
           "name":"description",
           "type":"String",
           "minLength":"1",
-          "maxLength":"50",
-          "defaultValue":"Master of Crafts"
+          "maxLength":"50"
         },
         {
             "name":"dob",
             "type":"Date",
-            "defaultValue":"01/01/2001",
             "formatMask":"dd/mm/yyyy"
         },
         {

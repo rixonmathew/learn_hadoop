@@ -7,6 +7,8 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.VLongWritable;
+import org.apache.hadoop.io.compress.CompressionCodec;
+import org.apache.hadoop.io.compress.GzipCodec;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
@@ -37,18 +39,20 @@ public class PositionsDriver extends Configured implements Tool {
         Job job = new Job();
         job.setJarByClass(PositionsDriver.class);
 
-        MongoConfigUtil.setOutputURI(job.getConfiguration(),"mongodb://localhost/test.users");
+        //MongoConfigUtil.setOutputURI(job.getConfiguration(),"mongodb://localhost/test.users");
         FileInputFormat.addInputPath(job,new Path(args[0]));
         FileOutputFormat.setOutputPath(job,new Path(args[1]));
 
         job.setMapperClass(PositionsMapper.class);
         job.setReducerClass(PositionsReducer.class);
 
-
+        job.getConfiguration().setBoolean("mapred.output.compress", true);
+        job.getConfiguration().setClass("mapred.output.compression.codec", GzipCodec.class,
+                CompressionCodec.class);
         job.setMapOutputValueClass(VLongWritable.class);
         job.setOutputKeyClass(LongWritable.class);
         job.setOutputValueClass(DoubleWritable.class);
-        job.setOutputFormatClass(MongoOutputFormat.class);
+        //job.setOutputFormatClass(MongoOutputFormat.class);
 
         return job.waitForCompletion(true)?1:0;
     }
@@ -57,6 +61,4 @@ public class PositionsDriver extends Configured implements Tool {
         int exitCode = ToolRunner.run(new PositionsDriver(),args);
         System.exit(exitCode);
     }
-
-
 }
