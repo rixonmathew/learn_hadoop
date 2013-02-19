@@ -1,6 +1,7 @@
 package com.mockgenerator.configuration;
 
 import com.alibaba.fastjson.JSON;
+import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.net.URL;
@@ -13,6 +14,7 @@ import java.net.URL;
  */
 public class SchemaParser {
 
+    private static final Logger LOG = Logger.getLogger(SchemaParser.class);
     public static Schema parse(String configurationFileName) {
         Schema schema = null;
         try {
@@ -26,12 +28,6 @@ public class SchemaParser {
     }
 
     private static String readInputFile(String configurationFileName) throws IOException {
-//        final ClassLoader resourceLoader = Thread.currentThread().getContextClassLoader();
-//        InputStream inputStream = resourceLoader.getResourceAsStream(configurationFileName);
-//        if (inputStream==null){
-//            throw new FileNotFoundException("Could not load configuration file:"+configurationFileName);
-//        }
-//        BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
         BufferedReader br = new BufferedReader(new FileReader(configurationFileName));
         StringBuilder stringBuffer = new StringBuilder();
         String line = br.readLine();
@@ -47,7 +43,8 @@ public class SchemaParser {
 
     private static Schema populateAttributes(String jsonString) {
         if(jsonString==null|| jsonString.isEmpty()){
-            return null; //TODO add log statements and introduce the concept of null Schema
+            LOG.error("An empty json was specified to SchemaParser");
+            return Schema.emptySchema();
         }
         return JSON.parseObject(jsonString,Schema.class);
     }

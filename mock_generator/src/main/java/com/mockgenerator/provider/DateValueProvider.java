@@ -13,7 +13,7 @@ import java.util.Date;
 public class DateValueProvider extends AbstractValueProvider<Date> {
     @Override
     public Date randomValue() {
-        return FileBasedRandomValueProvider.randomDate();
+        return DateProvider.randomDate();
     }
 
     @Override

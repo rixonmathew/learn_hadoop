@@ -30,7 +30,6 @@ public class MockGenerationClient {
     private static final String THREADS = "threads";
 
     public static void main(String[] args) throws IOException {
-        //TODO create the options and start the job
         if(args.length!=2) {
             System.err.println("Usage java jar MockGenerator --file <properties.file>");
             return;

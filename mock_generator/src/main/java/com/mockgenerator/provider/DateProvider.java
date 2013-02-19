@@ -4,7 +4,6 @@ import com.mockgenerator.util.DateUtil;
 import org.apache.log4j.Logger;
 
 import java.io.*;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,11 +16,10 @@ import java.util.Random;
  * Time: 12:22 PM
  * This class will provide random values based on a set of values defined in a file.
  */
-//TODO This naming convention is not as per the class responsibility. This should be refactored.
-class FileBasedRandomValueProvider {
+class DateProvider {
 
 
-    private final static Logger LOG = Logger.getLogger(FileBasedRandomValueProvider.class);
+    private final static Logger LOG = Logger.getLogger(DateProvider.class);
     private static final List<Date> dateList;
     private static final String DATES_FILE = "dates.txt";
     private static final Random random;

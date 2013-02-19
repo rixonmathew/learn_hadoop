@@ -1,5 +1,6 @@
 package com.mockgenerator.configuration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,6 +10,7 @@ import java.util.List;
 * This class represents the schema
 */
 public class Schema {
+
     private String name;
     private String type;
     private String separator;
@@ -44,5 +46,18 @@ public class Schema {
 
     public void setFields(List<Field> fields) {
         this.fields = fields;
+    }
+
+    private final static Schema EMPTY_SCHEMA;
+    static {
+        EMPTY_SCHEMA = new Schema();
+        EMPTY_SCHEMA.setFields(new ArrayList<Field>());
+        EMPTY_SCHEMA.setName("");
+        EMPTY_SCHEMA.setType("");
+        EMPTY_SCHEMA.setSeparator("");
+    }
+
+    public static Schema emptySchema() {
+        return EMPTY_SCHEMA;
     }
 }

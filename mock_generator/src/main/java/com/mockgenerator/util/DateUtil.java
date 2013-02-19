@@ -38,18 +38,9 @@ public class DateUtil {
         return format.format(date);
     }
 
-
-    public  static String getDateAsString(Date date) {
-        DateFormat dateFormat = getFormatter(DEFAULT_DATE_FORMAT);
-        return dateFormat.format(date);
-    }
-
     private synchronized static DateFormat getFormatter(String formatMask) {
 
-        /*
-        //TODO Using shared dateFormatter is not working in multi threaded environment
         DateFormat dateFormatter = null;
-
         if (formatters.containsKey(formatMask)){
             dateFormatter = formatters.get(formatMask);
         }  else {
@@ -59,10 +50,11 @@ public class DateUtil {
         }
 
         return dateFormatter;
-        */
+        /*
         if (formatMask==null){
             return new SimpleDateFormat(DEFAULT_DATE_FORMAT);
         }
         return new SimpleDateFormat(formatMask);
+        */
     }
 }
