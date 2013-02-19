@@ -16,8 +16,6 @@ import static org.hamcrest.Matchers.not;
  */
 public class TestFastJSONParser {
 
-    private final String jsonString ="{   \"name\":\"admin\",\"id\":0,\"users\":[    {\"name\":\"guest\",\"id\":2},    {\"name\":\"root\",\"id\":3}    ]    }";
-
     static class Group {
         private Long id;
         private String name;
@@ -54,6 +52,7 @@ public class TestFastJSONParser {
 
     @Test
     public void testJSONParsing() {
+        String jsonString = "{   \"name\":\"admin\",\"id\":0,\"users\":[    {\"name\":\"guest\",\"id\":2},    {\"name\":\"root\",\"id\":3}    ]    }";
         Group group = JSON.parseObject(jsonString, Group.class);
         List<User> users = group.getUsers();
         for (User user:users) {

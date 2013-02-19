@@ -24,7 +24,6 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
     private Options options;
     private File outputDirectory;
     private final Map<Long, File> filesForSplit;
-    private RecordCreationStrategy recordCreationStrategy;
 
     public RandomFileGenerationStrategy() {
         filesForSplit = new HashMap<Long, File>();
@@ -113,9 +112,9 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
     }
 
     class Worker implements Runnable {
-        Long split;
-        ProgressReporter progressReporter;
-        String taskId;
+        final Long split;
+        final ProgressReporter progressReporter;
+        final String taskId;
 
         Worker(Long split,ProgressReporter progressReporter) {
             this.progressReporter = progressReporter;
@@ -127,13 +126,13 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
         private void populateDataForSplit() throws IOException{
             File outputFile = filesForSplit.get(split);
             BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
-            recordCreationStrategy = RecordCreationContext.strategyFor(schema.getType());
+            RecordCreationStrategy recordCreationStrategy = RecordCreationContext.strategyFor(schema.getType());
             long maxRecords = options.getNumberOfRecordsPerSplit();
             for (int i = 0; i < maxRecords; i++) {
                 String record = recordCreationStrategy.createRecord(schema, options, i);
                 writer.write(record);
                 writer.newLine();
-                progressReporter.updateThreadProgress(taskId,Float.valueOf((i+1)*100.0f/maxRecords));
+                progressReporter.updateThreadProgress(taskId, (i + 1) * 100.0f / maxRecords);
             }
 
             writer.close();
@@ -144,14 +143,13 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
             try {
                 populateDataForSplit();
             } catch (IOException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace();
             }
         }
     }
 
     class ProgressReporter{
-        private int totalTasks;
-        private Map<String,Float> taskProgress = new HashMap<String, Float>();
+        private final Map<String,Float> taskProgress = new HashMap<String, Float>();
 
         synchronized void updateThreadProgress(String taskId,Float progress) {
            taskProgress.put(taskId,progress);
@@ -170,10 +168,5 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
                 overallProgress=total/count;
             return overallProgress;
         }
-
-        Float threadProgress(String taskId) {
-           return taskProgress.get(taskId);
-        }
     }
-
 }

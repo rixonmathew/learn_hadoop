@@ -21,11 +21,10 @@ public class FixedWidthRecordCreationStrategy implements RecordCreationStrategy 
     public String createRecord(Schema schema, Options options, long recordCounter) {
         StringBuilder record = new StringBuilder();
         List<Field> fields = schema.getFields();
-        for (int j = 0; j < fields.size(); j++) {
-            Field field = fields.get(j);
+        for (Field field : fields) {
             ValueProvider valueProvider = TypeValueProviders.valueProviderFor(field.getType());
-            if(valueProvider==null) {
-                System.out.println("VP null for field"+field);
+            if (valueProvider == null) {
+                System.out.println("VP null for field" + field);
             }
             String value = valueProvider.randomValueAsString(field);
             record.append(value);

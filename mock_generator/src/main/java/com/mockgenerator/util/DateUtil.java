@@ -40,7 +40,7 @@ public class DateUtil {
 
     private synchronized static DateFormat getFormatter(String formatMask) {
 
-        DateFormat dateFormatter = null;
+        DateFormat dateFormatter;
         if (formatters.containsKey(formatMask)){
             dateFormatter = formatters.get(formatMask);
         }  else {

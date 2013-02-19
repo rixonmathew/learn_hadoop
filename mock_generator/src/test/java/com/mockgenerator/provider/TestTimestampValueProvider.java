@@ -13,7 +13,7 @@ import java.util.Date;
  * User: rixon
  * Date: 12/2/13
  * Time: 3:26 PM
- * To change this template use File | Settings | File Templates.
+ * Test class for Timestamp Valueprovider
  */
 public class TestTimestampValueProvider {
 

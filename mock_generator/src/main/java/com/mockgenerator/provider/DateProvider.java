@@ -18,7 +18,6 @@ import java.util.Random;
  */
 class DateProvider {
 
-
     private final static Logger LOG = Logger.getLogger(DateProvider.class);
     private static final List<Date> dateList;
     private static final String DATES_FILE = "dates.txt";

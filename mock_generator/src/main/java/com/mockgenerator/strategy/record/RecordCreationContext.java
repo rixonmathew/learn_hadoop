@@ -8,11 +8,11 @@ import java.util.Map;
  * User: rixon
  * Date: 25/1/13
  * Time: 10:37 AM
- * To change this template use File | Settings | File Templates.
+ * This class is context for various strategies for creating a Record
  */
 public class RecordCreationContext {
 
-    private static Map<String,RecordCreationStrategy> recordCreationStrategies;
+    private static final Map<String,RecordCreationStrategy> recordCreationStrategies;
 
     private static final String DELIMITED = "delimited";
     private static final String FIXED_WIDTH = "fixed-width";

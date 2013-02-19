@@ -5,7 +5,7 @@ package com.mockgenerator.util;
  * User: rixon
  * Date: 25/1/13
  * Time: 11:52 AM
- * To change this template use File | Settings | File Templates.
+ * A simple utility class for String functions
  */
 public class StringUtil {
 
@@ -24,7 +24,7 @@ public class StringUtil {
         }
         int maxLength = value.length();
         if (prefix.length()>maxLength){
-            return prefix.substring(0,(int)maxLength);
+            return prefix.substring(0,maxLength);
         }
         return prefix+value.substring(prefix.length(),value.length());
     }

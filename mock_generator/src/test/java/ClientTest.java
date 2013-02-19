@@ -10,7 +10,7 @@ import static junit.framework.TestCase.fail;
  * User: rixon
  * Date: 6/2/13
  * Time: 10:41 AM
- * To change this template use File | Settings | File Templates.
+ * This class is the test file for testing Client
  */
 public class ClientTest {
 

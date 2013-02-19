@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  * User: rixon
  * Date: 12/2/13
  * Time: 11:00 AM
- * To change this template use File | Settings | File Templates.
+ * This class provides random values of type BigDecimal
  */
 public class BigDecimalValueProvider extends AbstractValueProvider<BigDecimal>{
 

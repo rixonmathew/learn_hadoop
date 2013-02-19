@@ -42,7 +42,7 @@ abstract class AbstractValueProvider<TYPE> implements ValueProvider<TYPE> {
      * @param maxValue the ending value in the range
      * @return the random value
      */
-    protected TYPE randomValueFromRange(TYPE minValue,TYPE maxValue){
+    TYPE randomValueFromRange(TYPE minValue, TYPE maxValue){
         if(random.nextInt(2)==0) {
             return minValue;
         } else {
@@ -151,7 +151,7 @@ abstract class AbstractValueProvider<TYPE> implements ValueProvider<TYPE> {
      * @param prefix value to be prefixed
      * @return the random value
      */
-    protected TYPE randomValueWithPrefix(long minLength,long maxLength,TYPE prefix) {
+    TYPE randomValueWithPrefix(long minLength, long maxLength, TYPE prefix) {
         return randomValue(minLength,maxLength);
     }
 
@@ -163,7 +163,7 @@ abstract class AbstractValueProvider<TYPE> implements ValueProvider<TYPE> {
      * @param suffix value to be suffixed
      * @return the random value
      */
-    protected TYPE randomValueWithSuffix(long minLength,long maxLength,TYPE suffix) {
+    TYPE randomValueWithSuffix(long minLength, long maxLength, TYPE suffix) {
         return randomValue(minLength,maxLength);
     }
 
@@ -173,6 +173,7 @@ abstract class AbstractValueProvider<TYPE> implements ValueProvider<TYPE> {
      * @param field
      * @return
      */
+    //TODO introduce precision in Field.
     protected TYPE applyPrecisionForNumbers(TYPE value,Field<TYPE> field){
         return value;
     }

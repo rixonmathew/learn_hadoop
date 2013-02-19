@@ -31,7 +31,6 @@ public class IDValueProvider extends AbstractValueProvider<Long> {
 
     @Override
     public Long randomValueWithPrefix(long minLength, long maxLength, Long prefix) {
-        Long value = randomValue(minLength,maxLength);
-        return value;
+        return randomValue(minLength,maxLength);
     }
 }
