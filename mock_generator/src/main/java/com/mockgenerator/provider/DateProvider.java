@@ -51,9 +51,9 @@ class DateProvider {
         BufferedReader br = new BufferedReader(new InputStreamReader(datesFile));
         String line = br.readLine();
         while (line != null) {
-            line = br.readLine();
             if (line != null)
                 dateList.add(DateUtil.getFormattedDate(line));
+            line = br.readLine();
         }
         br.close();
     }

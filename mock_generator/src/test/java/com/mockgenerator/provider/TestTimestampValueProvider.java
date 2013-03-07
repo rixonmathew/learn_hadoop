@@ -46,10 +46,28 @@ public class TestTimestampValueProvider {
         }
     }
 
+    @Test
+    public void testTimeStampWithMilliSeconds() {
+        Field<Date> dateField = mockFieldForMillisecond();
+        for (int i=0;i<1000;i++){
+            String timeStampValue = timeStampValueProvider.randomValueAsString(dateField);
+            System.out.println("timeStampValue = " + timeStampValue);
+        }
+
+    }
+
     private Field<Date> mockField() {
         Field<Date> dateField = new Field<Date>();
         dateField.setFormatMask("yyyyMMddHHmmss");
         return dateField;
     }
+
+    private Field<Date> mockFieldForMillisecond() {
+        Field<Date> dateField = new Field<Date>();
+        dateField.setFormatMask("yyyyMMddHHmmssSSSS");
+        return dateField;
+    }
+
+
 
 }

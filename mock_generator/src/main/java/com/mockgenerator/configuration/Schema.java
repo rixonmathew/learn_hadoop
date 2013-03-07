@@ -16,6 +16,7 @@ public class Schema {
     private String separator;
     private List<Field> fields;
 
+
     public String getName() {
         return name;
     }

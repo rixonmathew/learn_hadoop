@@ -1,0 +1,24 @@
+{
+    "name":"country-populations",
+    "type":"delimited",
+    "separator":";",
+    "fields":[
+        {
+            "name":"CountryCode",
+            "type":"String",
+            "range":"IN,AL,US,GB"
+        },
+        {
+            "name":"Year",
+            "type":"BigDecimal",
+            "minValue":1900,
+            "maxValue":2012
+        },
+        {
+            "name":"Population",
+            "type":"BigDecimal",
+            "minValue":1000000,
+            "maxValue":10000000000
+        }
+    ]
+}

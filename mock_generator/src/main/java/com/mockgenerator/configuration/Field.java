@@ -19,6 +19,7 @@ public class Field<TYPE> {
     private TYPE prefix;
     private String minValue;
     private String maxValue;
+    private String stepValue;
     private String padding;
     private String constantValue;
 
@@ -126,6 +127,14 @@ public class Field<TYPE> {
         this.constantValue = constantValue;
     }
 
+    public String getStepValue() {
+        return stepValue;
+    }
+
+    public void setStepValue(String stepValue) {
+        this.stepValue = stepValue;
+    }
+
     @Override
     public String toString() {
         return "Field{" +
@@ -140,6 +149,7 @@ public class Field<TYPE> {
                 ", prefix=" + prefix +
                 ", minValue='" + minValue + '\'' +
                 ", maxValue='" + maxValue + '\'' +
+                ", stepValue='" + stepValue + '\'' +
                 ", padding='" + padding + '\'' +
                 ", constantValue='" + constantValue + '\'' +
                 '}';

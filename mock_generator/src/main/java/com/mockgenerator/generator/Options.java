@@ -14,6 +14,7 @@ public class Options {
     private long numberOfRecordsPerSplit;
     private String outputDirectory;
     private int numberOfThreads;
+    private String generationClass;
 
     public Options() {
         this.generationType = DEFAULT_GENERATION_TYPE;
@@ -61,5 +62,13 @@ public class Options {
 
     public void setNumberOfThreads(int numberOfThreads) {
         this.numberOfThreads = numberOfThreads;
+    }
+
+    public void setGenerationClass(String generationClass) {
+        this.generationClass = generationClass;
+    }
+
+    public String getGenerationClass() {
+        return generationClass;
     }
 }

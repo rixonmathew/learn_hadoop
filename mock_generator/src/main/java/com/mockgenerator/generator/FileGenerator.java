@@ -3,6 +3,7 @@ package com.mockgenerator.generator;
 import com.mockgenerator.configuration.Schema;
 import com.mockgenerator.strategy.FileGenerationContext;
 import com.mockgenerator.strategy.FileGenerationStrategy;
+import org.apache.log4j.Logger;
 
 /**
  * User: rixonmathew
@@ -14,6 +15,8 @@ public class FileGenerator {
 
     private final Options options;
     private final Schema schema;
+    private FileGenerationStrategy strategy;
+    private final Logger LOG = Logger.getLogger(FileGenerator.class);
 
     public FileGenerator(Options options, Schema schema) {
         this.options = options;
@@ -21,7 +24,27 @@ public class FileGenerator {
     }
 
     public void generateFiles() {
-        FileGenerationStrategy strategy = FileGenerationContext.strategyForType(options.getGenerationType());
+        if (options.getGenerationType().equals("class")){
+            strategy = createStrategyFromClass();
+        } else {
+            strategy = FileGenerationContext.strategyForType(options.getGenerationType());
+        }
         strategy.generateFileData(schema,options);
+    }
+
+    private FileGenerationStrategy createStrategyFromClass() {
+        try {
+            strategy = (FileGenerationStrategy)Class.forName(options.getGenerationClass()).newInstance();
+        } catch (InstantiationException e) {
+            LOG.error("Error instantiating class:"+options.getGenerationClass());
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            LOG.error("Error accessing class:"+options.getGenerationClass());
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            LOG.error("Invalid class specified:"+options.getGenerationClass());
+            e.printStackTrace();
+        }
+        return strategy;
     }
 }

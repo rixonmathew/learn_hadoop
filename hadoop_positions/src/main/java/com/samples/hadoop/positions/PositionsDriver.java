@@ -49,6 +49,7 @@ public class PositionsDriver extends Configured implements Tool {
         job.getConfiguration().setBoolean("mapred.output.compress", true);
         job.getConfiguration().setClass("mapred.output.compression.codec", GzipCodec.class,
                 CompressionCodec.class);
+        job.getConfiguration().setStrings("mapred.textoutputformat.separator","==>");
         job.setMapOutputValueClass(VLongWritable.class);
         job.setOutputKeyClass(LongWritable.class);
         job.setOutputValueClass(DoubleWritable.class);
