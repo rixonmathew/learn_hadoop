@@ -8,6 +8,7 @@ import com.mockgenerator.provider.ValueProvider;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,16 +17,15 @@ import java.util.List;
  * Time: 10:39 AM
  * This strategy creates records when the record is delimited
  */
-public class DelimitedRecordCreationStrategy implements RecordCreationStrategy {
+public class DelimitedRecordCreationStrategy extends AbstractRecordCreationStrategy {
 
     @Override
-    public String createRecord(Schema schema, Options options, long recordCounter) {
+    public String createRecordWithOverrides(Schema schema, Options options, long recordCounter, Map<Field, String> overriddenFields) {
         StringBuilder record = new StringBuilder();
         List<Field> fields = schema.getFields();
         for (int j = 0; j < fields.size(); j++) {
             Field field = fields.get(j);
-            ValueProvider valueProvider = TypeValueProviders.valueProviderFor(field.getType());
-            String value = valueProvider.randomValueAsString(field);
+            String value = determineFieldValue(field,overriddenFields);
             record.append(value);
             if (j != fields.size() - 1) {
                 record.append(schema.getSeparator());

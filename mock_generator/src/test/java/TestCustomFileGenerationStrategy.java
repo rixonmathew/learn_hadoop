@@ -25,7 +25,7 @@ public class TestCustomFileGenerationStrategy {
     public void testQuoteDataGenerationStrategy() {
         String quotesSchemaName = "/home/rixon/workspace/workspace_misc/learn_hadoop/mock_generator/src/test/resources/quotes.json";
         Schema schema = SchemaParser.parse(quotesSchemaName);
-        String outputDirectory = "mock_"+quotesSchemaName.substring(0,quotesSchemaName.indexOf("."));
+        String outputDirectory = "mock_quotes";
         Options options = createMockOptions(outputDirectory,"class","com.mockgenerator.strategy.QuoteDataGenerationStrategy");
         FileGenerator fileGenerator = new FileGenerator(options,schema);
         assertFiles(options,fileGenerator);

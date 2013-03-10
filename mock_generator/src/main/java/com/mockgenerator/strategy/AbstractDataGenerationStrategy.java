@@ -6,44 +6,66 @@ import com.mockgenerator.strategy.record.RecordCreationContext;
 import com.mockgenerator.strategy.record.RecordCreationStrategy;
 import org.apache.log4j.Logger;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * User: rixonmathew
- * Date: 20/01/13
- * Time: 8:33 PM
+ * Created with IntelliJ IDEA.
+ * User: rixon
+ * Date: 7/3/13
+ * Time: 7:06 PM
+ * The base class for DataGenerationStrategy. This class is responsible for spawning multiple threads to generate data
+ *
  */
-public class RandomFileGenerationStrategy implements FileGenerationStrategy {
+public abstract class AbstractDataGenerationStrategy implements FileGenerationStrategy {
 
-    private final Logger LOG = Logger.getLogger(RandomFileGenerationStrategy.class);
-    private Schema schema;
-    private Options options;
-    private File outputDirectory;
-    private final Map<Long, File> filesForSplit;
+    protected final Logger LOG = Logger.getLogger(RandomFileGenerationStrategy.class);
+    protected Schema schema;
+    protected Options options;
+    protected File outputDirectory;
+    protected final Map<Long, File> filesForSplit;
 
-    public RandomFileGenerationStrategy() {
-        filesForSplit = new HashMap<Long, File>();
+    public AbstractDataGenerationStrategy(){
+      filesForSplit = new HashMap<Long, File>();
     }
 
     @Override
     public void generateFileData(Schema schema, Options options) {
         this.schema = schema;
         this.options = options;
-        generateOutputDirectories();
         try {
-            generateMockFiles();
+            prepareForDataGeneration();
+            generateOutputDirectories();
+            createFilesForSplits();
+            populateDataUsingWorkers();
+            cleanup();
         } catch (IOException e) {
-            LOG.error("An error occurred while creating output data");
-            e.printStackTrace();
+            LOG.error("An error occurred while creating files for splits");
         }
+    }
+
+    /**
+     * This method can be used by specific strategies to do any pre-processing
+     * before data generation
+     */
+    protected abstract void prepareForDataGeneration();
+
+    /**
+     * This method can be used by specific strategies to do clean up
+     * after data generation.
+     */
+    protected  void cleanup() {
 
     }
 
-    private void generateOutputDirectories() {
+    protected void generateOutputDirectories() {
         if (options.getOutputDirectory() == null || options.getOutputDirectory().isEmpty()) {
             String name = "output_" + System.currentTimeMillis();
             outputDirectory = new File(name);
@@ -54,12 +76,7 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
 
     }
 
-    private void generateMockFiles() throws IOException {
-        createFilesForSplits();
-        populateFilesWithRandomData();
-    }
-
-    private void createFilesForSplits() throws IOException {
+    protected void createFilesForSplits() throws IOException {
         String fileName = schema.getName() + "-part";
         for (int split = 0; split < options.getNumberOfFileSplits(); split++) {
             String splitFileName = fileName + "-" + split;
@@ -69,7 +86,7 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
         }
     }
 
-    private void populateFilesWithRandomData() {
+    protected void populateDataUsingWorkers() {
         ProgressReporter progressReporter = new ProgressReporter();
         ExecutorService executorService = Executors.newFixedThreadPool(options.getNumberOfThreads());
         for (Long split : filesForSplit.keySet()) {
@@ -79,7 +96,6 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
         executorService.shutdown();
         while (!executorService.isTerminated()) {
             try {
-                //System.out.print("\rProgress==> " + progressReporter.overallProgress()+"%");
                 updateProgress(progressReporter.overallProgress());
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -103,48 +119,20 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
         System.out.print("] ==>"+progressPercentage+"%");
     }
 
-    class Worker implements Runnable {
-        final Long split;
-        final ProgressReporter progressReporter;
-        final String taskId;
-
-        Worker(Long split,ProgressReporter progressReporter) {
-            this.progressReporter = progressReporter;
-            this.split = split;
-            this.taskId = "task:"+split;
-            progressReporter.updateThreadProgress(taskId,0.0f);
-        }
-
-        private void populateDataForSplit() throws IOException{
-            File outputFile = filesForSplit.get(split);
-            BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
-            RecordCreationStrategy recordCreationStrategy = RecordCreationContext.strategyFor(schema.getType());
-            long maxRecords = options.getNumberOfRecordsPerSplit();
-            for (int i = 0; i < maxRecords; i++) {
-                String record = recordCreationStrategy.createRecord(schema, options, i);
-                writer.write(record);
-                writer.newLine();
-                progressReporter.updateThreadProgress(taskId, (i + 1) * 100.0f / maxRecords);
-            }
-
-            writer.close();
-        }
-
-        @Override
-        public void run() {
-            try {
-                populateDataForSplit();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+    /**
+     * This method will do the work required for populating the split. The AbstractDataGenerationStrategy takes
+     * care of creating the thread pool for executing the tasks. Each of the worker thread will call this method
+     * for creating data for splits. All subclasses needs to provide an implementation as per the variating they
+     * expect
+     * @param split the split for which data is to be generated
+     */
+    protected abstract void populateDataForSplit(long split);
 
     class ProgressReporter{
         private final Map<String,Float> taskProgress = new HashMap<String, Float>();
 
         synchronized void updateThreadProgress(String taskId,Float progress) {
-           taskProgress.put(taskId,progress);
+            taskProgress.put(taskId,progress);
         }
 
         synchronized float overallProgress() {
@@ -159,6 +147,24 @@ public class RandomFileGenerationStrategy implements FileGenerationStrategy {
             if(count>0)
                 overallProgress=total/count;
             return overallProgress;
+        }
+    }
+
+    class Worker implements Runnable {
+        final Long split;
+        final ProgressReporter progressReporter;
+        final String taskId;
+
+        Worker(Long split, ProgressReporter progressReporter) {
+            this.progressReporter = progressReporter;
+            this.split = split;
+            this.taskId = "task:" + split;
+            progressReporter.updateThreadProgress(taskId, 0.0f);
+        }
+
+        @Override
+        public void run() {
+            populateDataForSplit(split);
         }
     }
 }

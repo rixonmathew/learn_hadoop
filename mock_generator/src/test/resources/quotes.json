@@ -4,7 +4,7 @@
     "class":"com.mockgenerator.strategy.QuoteDataGenerationStrategy",
     "fields":[
         {
-            "name":"timestamp",
+            "name":"Timestamp",
             "type":"Timestamp",
             "fixedLength":9,
             "minValue":"093000000",

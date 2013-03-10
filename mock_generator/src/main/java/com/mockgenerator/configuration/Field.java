@@ -154,4 +154,24 @@ public class Field<TYPE> {
                 ", constantValue='" + constantValue + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Field field = (Field) o;
+
+        if (!name.equals(field.name)) return false;
+        if (!type.equals(field.type)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + type.hashCode();
+        return result;
+    }
 }

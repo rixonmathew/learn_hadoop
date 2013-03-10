@@ -83,12 +83,10 @@ public class TestJSONConfigReader {
         assertThat(schema.getName(),is(expectedName));
         assertThat(schema.getType(), is(expectedType));
         List<Field> fields = schema.getFields();
-        //int expectedFields = 19;
-        //assertThat(fields.size(),is(expectedFields));
-        System.out.println("fields = " + fields.size());
-        for (Field field:fields) {
-            System.out.println("field = " + field);
-        }
-
+        int expectedFields = 22;
+        assertThat(fields.size(),is(expectedFields));
+//        for (Field field:fields) {
+//            System.out.println("field = " + field);
+//        }
     }
 }

@@ -6,8 +6,10 @@ import com.mockgenerator.generator.Options;
 import com.mockgenerator.provider.TypeValueProviders;
 import com.mockgenerator.provider.ValueProvider;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,17 +18,14 @@ import java.util.List;
  * Time: 10:53 AM
  * This strategy is responsible for creating fixedWidthRecord based on the fields
  */
-public class FixedWidthRecordCreationStrategy implements RecordCreationStrategy {
+public class FixedWidthRecordCreationStrategy extends AbstractRecordCreationStrategy {
+
     @Override
-    public String createRecord(Schema schema, Options options, long recordCounter) {
+    public String createRecordWithOverrides(Schema schema, Options options, long recordCounter, Map<Field, String> overriddenFields) {
         StringBuilder record = new StringBuilder();
         List<Field> fields = schema.getFields();
         for (Field field : fields) {
-            ValueProvider valueProvider = TypeValueProviders.valueProviderFor(field.getType());
-            if (valueProvider == null) {
-                System.out.println("VP null for field" + field);
-            }
-            String value = valueProvider.randomValueAsString(field);
+            String value = determineFieldValue(field,overriddenFields);
             record.append(value);
         }
         return record.toString();

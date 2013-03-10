@@ -1,7 +1,11 @@
 package com.mockgenerator.strategy.record;
 
+import com.mockgenerator.configuration.Field;
 import com.mockgenerator.configuration.Schema;
 import com.mockgenerator.generator.Options;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,4 +24,17 @@ public interface RecordCreationStrategy {
      * @return fully formed record
      */
     public String createRecord(Schema schema,Options options,long recordCounter);
+
+
+    /**
+     * This method will allow creation of record with facility to override random values. This is useful in scenarios where data generation
+     * needs to be controlled like in a series. In this scenario the File generation strategy can decide which all fields value should be
+     * overridden with the provided value
+     * @param schema represents the schema of the file to be generated
+     * @param options represents the options for creating the file
+     * @param recordCounter the recordCounter.
+     * @param overriddenFields  a list of FieldValueHolders that contains overridden values
+     * @return fully formed record
+     */
+    public String createRecordWithOverrides(Schema schema,Options options,long recordCounter,Map<Field,String> overriddenFields);
 }
