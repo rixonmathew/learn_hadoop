@@ -12,10 +12,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -149,19 +146,43 @@ public class QuoteDataGenerationStrategy extends AbstractDataGenerationStrategy 
         Field symbolField = fieldMap.get(SYMBOL);
         overriddenValues.put(symbolField,symbolName);
         Field timestampField = fieldMap.get(TIMESTAMP);
-        String timeStamp = Long.toString(time);
+        String timeStamp = getValueWithPadding(Long.toString(time),timestampField);
         overriddenValues.put(timestampField,timeStamp);
         Field bidPrice = fieldMap.get(BID_PRICE);
-        BigDecimal bidPriceValue = BigDecimal.valueOf(Double.valueOf(priceSet.bidPrice)+20.0d*Math.random());
-        overriddenValues.put(bidPrice,bidPriceValue.toPlainString());
-        Field bidSize = fieldMap.get(BID_SIZE);
-        overriddenValues.put(bidSize,priceSet.bidQuantity);
+        double randomBoundForPrice = 20.0d;
+        double randomBoundForQuantity = 50.0d;
+        String bidPriceValue = getRandomValue(priceSet.bidPrice, randomBoundForPrice,bidPrice);
+        overriddenValues.put(bidPrice,bidPriceValue);
+        Field bidQuantity = fieldMap.get(BID_SIZE);
+        String bidQuantityValue = getRandomValue(priceSet.bidQuantity, randomBoundForQuantity,bidQuantity);
+        overriddenValues.put(bidQuantity,bidQuantityValue);
         Field askPrice = fieldMap.get(ASK_PRICE);
-        overriddenValues.put(askPrice,priceSet.askPrice);
+        String askPriceValue = getRandomValue(priceSet.askPrice, randomBoundForPrice,askPrice);
+        overriddenValues.put(askPrice,askPriceValue);
         Field askQuantity = fieldMap.get(ASK_SIZE);
-        overriddenValues.put(askQuantity,priceSet.askQuantity);
+        String askQuantityValue = getRandomValue(priceSet.askQuantity, randomBoundForQuantity,askQuantity);
+        overriddenValues.put(askQuantity,askQuantityValue);
         return overriddenValues;
     }
+
+    private String getValueWithPadding(String value,Field field) {
+        int paddingLength = field.getFixedLength()-value.length();
+        StringBuilder valueWithPadding = new StringBuilder();
+        for (int i=0;i<paddingLength;i++) {
+            valueWithPadding.append(field.getPadding());
+        }
+        return valueWithPadding.append(value).toString();
+    }
+
+
+    private String getRandomValue(String baseValue,double randomBound,Field field) {
+        Random random = new Random();
+        double multiplier = random.nextInt(1)==1?1.0d:-1.0d;
+        BigDecimal randomValue  = BigDecimal.valueOf(Double.valueOf(baseValue)+randomBound*Math.random()*multiplier);
+        randomValue =  randomValue.setScale(0, BigDecimal.ROUND_HALF_UP);
+        return getValueWithPadding(randomValue.toPlainString(),field);
+    }
+
 
     class PriceSet {
         String askPrice;

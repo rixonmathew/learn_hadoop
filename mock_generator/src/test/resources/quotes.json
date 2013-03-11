@@ -10,8 +10,8 @@
             "minValue":"093000000",
             "maxValue":"170000000",
             "stepValue":"100",
-            "formatMask":"HHmmssSSS"
-
+            "formatMask":"HHmmssSSS",
+            "padding":"0"
         },
         {
             "name":"Exchange",

@@ -44,13 +44,13 @@ public class TestCustomFileGenerationStrategy {
     private void assertFiles(Options options, FileGenerator fileGenerator) {
         fileGenerator.generateFiles();
         File file = new File(options.getOutputDirectory());
-//        assertThat(file.isDirectory(), is(true));
-//        File[] files = file.listFiles();
-//        assertNotNull(files);
-//        assertThat((long) files.length, is(options.getNumberOfFileSplits()));
-//        for (File file1:files) {
-//            System.out.println("file1 = " + file1.getName());
-//        }
+        assertThat(file.isDirectory(), is(true));
+        File[] files = file.listFiles();
+        assertNotNull(files);
+        assertThat((long) files.length, is(options.getNumberOfFileSplits()));
+        for (File file1:files) {
+            System.out.println("file1 = " + file1.getName());
+        }
     }
 
 }
