@@ -2,16 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b8b13350-d1b8-4635-b895-98adc2ec371e" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mock_generator/src/main/java/com/mockgenerator/strategy/AbstractDataGenerationStrategy.java" afterPath="$PROJECT_DIR$/../mock_generator/src/main/java/com/mockgenerator/strategy/AbstractDataGenerationStrategy.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mock_generator/src/main/java/com/mockgenerator/strategy/QuoteDataGenerationStrategy.java" afterPath="$PROJECT_DIR$/../mock_generator/src/main/java/com/mockgenerator/strategy/QuoteDataGenerationStrategy.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mock_generator/src/test/java/TestCustomFileGenerationStrategy.java" afterPath="$PROJECT_DIR$/../mock_generator/src/test/java/TestCustomFileGenerationStrategy.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mock_generator/src/main/java/com/mockgenerator/strategy/RandomFileGenerationStrategy.java" afterPath="$PROJECT_DIR$/../mock_generator/src/main/java/com/mockgenerator/strategy/RandomFileGenerationStrategy.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.idea/misc.xml" afterPath="$PROJECT_DIR$/../.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../mock_generator/src/test/resources/quotes.json" afterPath="$PROJECT_DIR$/../mock_generator/src/test/resources/quotes.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.idea/vcs.xml" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.idea/workspace.xml" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="post_trade_analytics.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="b8b13350-d1b8-4635-b895-98adc2ec371e" time="1362933657697" ignored="false" />
+    <file path="/Dummy.txt" changelist="b8b13350-d1b8-4635-b895-98adc2ec371e" time="1362984752250" ignored="false" />
     <file path="/TestTimestampValueProvider.java" changelist="b8b13350-d1b8-4635-b895-98adc2ec371e" time="1362653917311" ignored="false" />
     <file path="/quotes.json" changelist="b8b13350-d1b8-4635-b895-98adc2ec371e" time="1362984188594" ignored="false" />
     <file path="/quotes.properties" changelist="b8b13350-d1b8-4635-b895-98adc2ec371e" time="1362656729262" ignored="false" />
@@ -20,17 +21,16 @@
     <file path="/Schema.java" changelist="b8b13350-d1b8-4635-b895-98adc2ec371e" time="1362659533439" ignored="false" />
     <file path="/TestCustomFileGenerationStrategy.java" changelist="b8b13350-d1b8-4635-b895-98adc2ec371e" time="1362660143829" ignored="false" />
     <file path="/FileGenerator.java" changelist="b8b13350-d1b8-4635-b895-98adc2ec371e" time="1362660838700" ignored="false" />
-    <file path="/QuoteDataGenerationStrategy.java" changelist="b8b13350-d1b8-4635-b895-98adc2ec371e" time="1362984243160" ignored="false" />
+    <file path="/QuoteDataGenerationStrategy.java" changelist="b8b13350-d1b8-4635-b895-98adc2ec371e" time="1362985919299" ignored="false" />
     <file path="/Field.java" changelist="b8b13350-d1b8-4635-b895-98adc2ec371e" time="1362661325633" ignored="false" />
     <file path="/TestJSONConfigReader.java" changelist="b8b13350-d1b8-4635-b895-98adc2ec371e" time="1362662524267" ignored="false" />
-    <file path="/AbstractDataGenerationStrategy.java" changelist="b8b13350-d1b8-4635-b895-98adc2ec371e" time="1362932808712" ignored="false" />
-    <file path="/RandomFileGenerationStrategy.java" changelist="b8b13350-d1b8-4635-b895-98adc2ec371e" time="1362663513362" ignored="false" />
+    <file path="/AbstractDataGenerationStrategy.java" changelist="b8b13350-d1b8-4635-b895-98adc2ec371e" time="1362985741328" ignored="false" />
+    <file path="/RandomFileGenerationStrategy.java" changelist="b8b13350-d1b8-4635-b895-98adc2ec371e" time="1362985376160" ignored="false" />
     <file path="/FieldValueHolder.java" changelist="b8b13350-d1b8-4635-b895-98adc2ec371e" time="1362665925128" ignored="false" />
     <file path="/RecordCreationStrategy.java" changelist="b8b13350-d1b8-4635-b895-98adc2ec371e" time="1362667643687" ignored="false" />
     <file path="/FixedWidthRecordCreationStrategy.java" changelist="b8b13350-d1b8-4635-b895-98adc2ec371e" time="1362667855220" ignored="false" />
     <file path="/AbstractRecordCreationStrategy.java" changelist="b8b13350-d1b8-4635-b895-98adc2ec371e" time="1362667778829" ignored="false" />
     <file path="/DelimitedRecordCreationStrategy.java" changelist="b8b13350-d1b8-4635-b895-98adc2ec371e" time="1362667954180" ignored="false" />
-    <file path="$PROJECT_DIR$/.idea/workspace.xml" changelist="b8b13350-d1b8-4635-b895-98adc2ec371e" time="1362984418970" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

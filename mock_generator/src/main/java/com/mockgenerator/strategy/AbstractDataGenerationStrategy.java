@@ -31,6 +31,7 @@ public abstract class AbstractDataGenerationStrategy implements FileGenerationSt
     protected Options options;
     protected File outputDirectory;
     protected final Map<Long, File> filesForSplit;
+    protected ProgressReporter progressReporter;
 
     public AbstractDataGenerationStrategy(){
       filesForSplit = new HashMap<Long, File>();
@@ -55,7 +56,9 @@ public abstract class AbstractDataGenerationStrategy implements FileGenerationSt
      * This method can be used by specific strategies to do any pre-processing
      * before data generation
      */
-    protected abstract void prepareForDataGeneration();
+    protected void prepareForDataGeneration() {
+
+    }
 
     /**
      * This method can be used by specific strategies to do clean up
@@ -87,7 +90,7 @@ public abstract class AbstractDataGenerationStrategy implements FileGenerationSt
     }
 
     protected void populateDataUsingWorkers() {
-        ProgressReporter progressReporter = new ProgressReporter();
+        progressReporter = new ProgressReporter();
         ExecutorService executorService = Executors.newFixedThreadPool(options.getNumberOfThreads());
         for (Long split : filesForSplit.keySet()) {
             Worker worker = new Worker(split,progressReporter);
@@ -116,7 +119,7 @@ public abstract class AbstractDataGenerationStrategy implements FileGenerationSt
         for (; i < width; i++) {
             System.out.print(" ");
         }
-        System.out.print("] ==>"+progressPercentage+"%");
+        System.out.print("] ==>" + progressPercentage + "%");
     }
 
     /**
@@ -125,8 +128,9 @@ public abstract class AbstractDataGenerationStrategy implements FileGenerationSt
      * for creating data for splits. All subclasses needs to provide an implementation as per the variating they
      * expect
      * @param split the split for which data is to be generated
+     * @param taskId
      */
-    protected abstract void populateDataForSplit(long split);
+    protected abstract void populateDataForSplit(long split, String taskId) throws IOException;
 
     class ProgressReporter{
         private final Map<String,Float> taskProgress = new HashMap<String, Float>();
@@ -164,7 +168,11 @@ public abstract class AbstractDataGenerationStrategy implements FileGenerationSt
 
         @Override
         public void run() {
-            populateDataForSplit(split);
+            try {
+                populateDataForSplit(split,taskId);
+            } catch (IOException e) {
+                LOG.error("An error occurred while populating data for split:"+split);
+            }
         }
     }
 }

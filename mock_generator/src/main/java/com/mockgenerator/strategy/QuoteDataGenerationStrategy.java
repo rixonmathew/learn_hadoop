@@ -1,9 +1,6 @@
 package com.mockgenerator.strategy;
 
 import com.mockgenerator.configuration.Field;
-import com.mockgenerator.configuration.Schema;
-import com.mockgenerator.generator.Options;
-import com.mockgenerator.strategy.record.FieldValueHolder;
 import com.mockgenerator.strategy.record.RecordCreationContext;
 import com.mockgenerator.strategy.record.RecordCreationStrategy;
 
@@ -92,10 +89,11 @@ public class QuoteDataGenerationStrategy extends AbstractDataGenerationStrategy 
 
 
     @Override
-    protected void populateDataForSplit(long split) {
-        List<String> mockData = new ArrayList<String>();
+    protected void populateDataForSplit(long split, String taskId) throws IOException {
         RecordCreationStrategy recordCreationStrategy = RecordCreationContext.strategyFor(schema.getType());
         List<Long> timestamps = timestampsPerSplit.get(split);
+        File outputFile = filesForSplit.get(split);
+        BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
         Long startTime = timestamps.get(0);
         Long endTime = timestamps.get(1);
         while (startTime<=endTime){
@@ -103,27 +101,16 @@ public class QuoteDataGenerationStrategy extends AbstractDataGenerationStrategy 
                 for (PriceSet priceSet:masterQuotes.get(symbolName)) {
                     Map<Field,String> overriddenValues = determineOverriddenValues(startTime,symbolName,priceSet);
                     String record = recordCreationStrategy.createRecordWithOverrides(schema,options,0,overriddenValues);
-                    mockData.add(record);
+                    writer.write(record);
+                    writer.newLine();
                 }
             }
             startTime+=stepValue;
-        }
-        try {
-            persistDataForSplit(split,mockData);
-        } catch (IOException e) {
-            LOG.error("An error occurred while trying to create file for split:"+split);
-        }
-    }
-
-    private void persistDataForSplit(long split, List<String> mockData) throws IOException {
-        File outputFile = filesForSplit.get(split);
-        BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
-        for (String record:mockData) {
-            writer.write(record);
-            writer.newLine();
+            progressReporter.updateThreadProgress(taskId, (endTime-startTime)*1.0f/endTime);
         }
         writer.close();
     }
+
 
     private List<PriceSet> createPriceSets() {
         List<PriceSet> priceSets = new ArrayList<PriceSet>();
