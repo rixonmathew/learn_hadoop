@@ -132,10 +132,10 @@ public abstract class AbstractDataGenerationStrategy implements FileGenerationSt
      */
     protected abstract void populateDataForSplit(long split, String taskId) throws IOException;
 
-    class ProgressReporter{
+    public class ProgressReporter{
         private final Map<String,Float> taskProgress = new HashMap<String, Float>();
 
-        synchronized void updateThreadProgress(String taskId,Float progress) {
+        public synchronized void updateThreadProgress(String taskId,Float progress) {
             taskProgress.put(taskId,progress);
         }
 

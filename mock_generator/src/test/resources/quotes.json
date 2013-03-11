@@ -1,7 +1,7 @@
 {
     "name":"quotes",
     "type":"fixed-width",
-    "class":"com.mockgenerator.strategy.QuoteDataGenerationStrategy",
+    "class":"com.mockgenerator.strategy.marketdata.QuoteDataGenerationStrategy",
     "fields":[
         {
             "name":"Timestamp",
